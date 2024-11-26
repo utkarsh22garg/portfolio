@@ -14,17 +14,20 @@ interface ResumeCardProps {
   altText: string;
   title: string;
   subtitle?: string;
+  location?: string;
   href?: string;
   badges?: readonly string[];
   period: string;
-  description?: string;
+  description?: string | { summary?: string, bullets?: readonly string[] };
 }
+
 export const ResumeCard = ({
   logoUrl,
   altText,
   title,
   subtitle,
   href,
+  location,
   badges,
   period,
   description,
@@ -84,7 +87,10 @@ export const ResumeCard = ({
                 {period}
               </div>
             </div>
-            {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
+            <div className="flex items-center justify-between gap-x-2">
+              {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
+              {location && <div className="font-sans text-xs text-muted-foreground">{location}</div>}
+            </div>
           </CardHeader>
           {description && (
             <motion.div
@@ -100,7 +106,8 @@ export const ResumeCard = ({
               }}
               className="mt-2 text-xs sm:text-sm"
             >
-              {description}
+              {typeof description === 'string' ? description : description?.summary}
+              {typeof description === 'object' && (description?.bullets?.map((bullet, idx) => (<li key={idx}>{bullet}</li>)))}
             </motion.div>
           )}
         </div>

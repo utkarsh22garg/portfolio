@@ -79,26 +79,21 @@ and effective data visualization solutions.",
       badges: [],
       location: "Hyderabad, India",
       title: "Senior Member Technical",
-      logoUrl: "/atomic.png",
+      logoUrl: "/deshaw.png",
       start: "July 2020",
       end: "Present",
-      description:
-        "Member of the Web Infrastructure team, contributing to scalable \
-frontend and backend development. Focuses on enhancing business \
-intelligence tools, improving UI component libraries, optimizing \
-performance, and mentoring team members.",
-    },
-    {
-      company: "Shopify",
-      badges: [],
-      href: "https://shopify.com",
-      location: "Remote",
-      title: "Software Engineer",
-      logoUrl: "/shopify.svg",
-      start: "January 2021",
-      end: "April 2021",
-      description:
-        "Implemented a custom Kubernetes controller in Go to automate the deployment of MySQL and ProxySQL custom resources in order to enable 2,000+ internal developers to instantly deploy their app databases to production. Wrote several scripts in Go to automate MySQL database failovers while maintaining master-slave replication topologies and keeping Zookeeper nodes consistent with changes.",
+      description: {
+        summary: "Member of the Web Infrastructure team, contributing to scalable frontend and backend development. Focuses on enhancing business intelligence tools, improving UI component libraries, optimizing performance, and mentoring team members.",
+        bullets: [
+          "Developed and maintained a comprehensive business intelligence tool using TypeScript, ReactJS, and Storybook",
+          "Implemented a robust Logger micro-service API with NodeJS, optimizing endpoints for large batched requests and effective data retrieval",
+          "Created a usage logging insights tool in JavaScript and Python, aiding in data-driven decision making.",
+          "Increased data processing efficiency by 12 times by integrating Dask for parallel-distributed computing in backend analytics",
+          "Led the redevelopment of the React UI component library on Material UI and improved component development methodology",
+          "Owned and maintained five projects to keep them updated and made sure developers use these modules without any hassle",
+          "Actively participated in talent acquisition, interviewing candidates at IITs and contributing to the off-campus recruitment program",
+        ]
+      }
     },
     {
       company: "Motilal Nehru National Institute of Technology Allahabad",
@@ -108,45 +103,32 @@ performance, and mentoring team members.",
       title: "Training & Placement Coordinator",
       logoUrl: "/mnnit.png",
       start: "July 2019",
-      end: "June 2020",
-      description:
-        "Architected and wrote the entire MVP of the GeForce Now Cloud Gaming internal admin and A/B testing dashboard using React, Redux, TypeScript, and Python.",
+      end: "May 2020",
+      description: {
+        summary: "",
+        bullets: [
+          "Conducted mock tests and interviews to prepare students for college placements and internships",
+          "Organized various training sessions and PPT's of several firms for crowd of 300-400 students",
+          "Managed various logistics with my team to organize recruitment sessions for the company successfully from start to end"
+        ]
+      }
     },
     {
       company: "Visa Inc.",
       href: "https://www.visa.co.in/",
-      badges: ["ReactJS", "Redux", "GoLang", "RDBMS"],
-      location: "Bangalore",
+      badges: [],
+      location: "Bangalore, India",
       title: "Summer Intern",
       logoUrl: "/visa.png",
       start: "May 2019",
       end: "July 2019",
-      description:
-        "Boosted SDLC process by creating a status tracker and removed old tedious method of email tracking",
-    },
-    {
-      company: "Lime",
-      href: "https://li.me/",
-      badges: [],
-      location: "San Francisco, CA",
-      title: "Software Engineer",
-      logoUrl: "/lime.svg",
-      start: "January 2018",
-      end: "April 2018",
-      description:
-        "Proposed and implemented an internal ruby API for sending/receiving commands to scooters over LTE networks. Developed a fully automated bike firmware update system to handle asynchronous firmware updates of over 100,000+ scooters worldwide, and provide progress reports in real-time using React, Ruby on Rails, PostgreSQL and AWS EC2 saving hundreds of developer hours.",
-    },
-    {
-      company: "Mitre Media",
-      href: "https://mitremedia.com/",
-      badges: [],
-      location: "Toronto, ON",
-      title: "Software Engineer",
-      logoUrl: "/mitremedia.png",
-      start: "May 2017",
-      end: "August 2017",
-      description:
-        "Designed and implemented a robust password encryption and browser cookie storage system in Ruby on Rails. Leveraged the Yahoo finance API to develop the dividend.com equity screener",
+      description: {
+        summary: "Contributed to the development and maintenance of a status tracker using ReactJS and Redux, with backend support via GoLang and relational database design",
+        bullets: [
+          "Improved SDLC process by creating a status tracker, replacing the outdated email tracking method",
+          "Created GoLang endpoints to fetch and update tracker configuration and data",
+        ]
+      }
     },
   ],
   education: [
