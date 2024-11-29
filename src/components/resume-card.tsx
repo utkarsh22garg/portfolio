@@ -13,6 +13,7 @@ interface ResumeCardProps {
   logoUrl: string;
   altText: string;
   title: string;
+  cgpa?: string;
   subtitle?: string;
   location?: string;
   href?: string;
@@ -25,6 +26,7 @@ export const ResumeCard = ({
   logoUrl,
   altText,
   title,
+  cgpa,
   subtitle,
   href,
   location,
@@ -43,6 +45,7 @@ export const ResumeCard = ({
 
   return (
     <Link
+      target="_blank"
       href={href || "#"}
       className="block cursor-pointer"
       onClick={handleClick}
@@ -79,7 +82,8 @@ export const ResumeCard = ({
                 <ChevronRightIcon
                   className={cn(
                     "size-4 translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100",
-                    isExpanded ? "rotate-90" : "rotate-0"
+                    isExpanded ? "rotate-90" : "rotate-0",
+                    description ? "visible" : "invisible",
                   )}
                 />
               </h3>
@@ -89,6 +93,7 @@ export const ResumeCard = ({
             </div>
             <div className="flex items-center justify-between gap-x-2">
               {subtitle && <div className="font-sans text-xs">{subtitle}</div>}
+              {cgpa && <div className="font-sans text-xs text-muted-foreground">{cgpa}</div>}
               {location && <div className="font-sans text-xs text-muted-foreground">{location}</div>}
             </div>
           </CardHeader>

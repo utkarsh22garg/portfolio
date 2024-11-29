@@ -89,6 +89,7 @@ export default function Page() {
                 key={education.school}
                 href={education.href}
                 logoUrl={education.logoUrl}
+                cgpa={education.cgpa}
                 altText={education.school}
                 title={education.school}
                 subtitle={education.degree}
