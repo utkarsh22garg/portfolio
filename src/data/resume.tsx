@@ -19,14 +19,18 @@ visualization. Recognized for significant performance improvements \
 and effective data visualization solutions.",
   avatarUrl: "/me.png",
   skills: [
-    "React",
-    "Redux",
-    "Typescript",
-    "Node.js",
-    "Python",
-    "MSSQL",
-    "C++",
-    "JavaScript",
+    {
+      group: 'Languages',
+      items: ['JavaScript', "TypeScript", "Python", "C", "C++", "Java", "HTML", "CSS", "SQL"],
+    },
+    {
+      group: 'Libraries & Frameworks',
+      items: ['NodeJS', 'ReactJS', 'Redux', "React Query", "Material UI", "Python-Dask", "React Testing Library", "Mocha", "Storybook"],
+    },
+    {
+      group: 'Tools & Software',
+      items: ['JupyterLab', "Visual Studio Code", "Linux", "Git"],
+    }
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
