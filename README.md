@@ -84,7 +84,7 @@ All personal information, experience, projects, and skills are managed through a
 ### Prerequisites
 
 - Node.js (version 16 or higher)
-- npm or yarn package manager
+- pnpm package manager
 
 ### Installation
 
@@ -96,16 +96,12 @@ All personal information, experience, projects, and skills are managed through a
 
 2. **Install dependencies**
    ```bash
-   npm install
-   # or
-   yarn install
+   pnpm install
    ```
 
 3. **Start the development server**
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   pnpm dev
    ```
 
 4. **Open your browser**
@@ -114,9 +110,7 @@ All personal information, experience, projects, and skills are managed through a
 ### Building for Production
 
 ```bash
-npm run build
-# or
-yarn build
+pnpm build
 ```
 
 The built files will be in the `dist` directory, ready for deployment.
@@ -148,10 +142,10 @@ The portfolio is fully responsive with breakpoints for:
 
 ## 🔧 Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint for code quality
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm preview` - Preview production build locally
+- `pnpm lint` - Run ESLint for code quality
 
 ## 🌐 Deployment
 
@@ -164,11 +158,11 @@ This portfolio can be deployed to various platforms:
 
 ### Netlify
 1. Connect your GitHub repository to Netlify
-2. Set build command: `npm run build`
+2. Set build command: `pnpm build`
 3. Set publish directory: `dist`
 
 ### GitHub Pages
-1. Build the project: `npm run build`
+1. Build the project: `pnpm build`
 2. Deploy the `dist` folder to GitHub Pages
 
 ## 🤝 Contributing
