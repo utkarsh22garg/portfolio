@@ -1,12 +1,43 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import config from "@/data/config.json";
 
+const SECTIONS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+];
+
 const Navigation = () => {
+  const [activeSection, setActiveSection] = useState("home");
+
+  // Scroll to section and set active
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Scrollspy effect
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = "home";
+      for (const section of SECTIONS) {
+        const el = document.getElementById(section.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom > 80) {
+            current = section.id;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const downloadResume = () => {
     const link = document.createElement('a');
@@ -23,36 +54,24 @@ const Navigation = () => {
         <div className="text-2xl font-bold text-primary">
           {config.personal.name.split(' ')[0]}.
         </div>
-        
         <div className="hidden md:flex items-center space-x-8">
-          <button
-            onClick={() => scrollToSection('home')}
-            className="text-foreground hover:text-primary transition-colors border-b-2 border-primary"
-          >
-            Home
-          </button>
-          <button
-            onClick={() => scrollToSection('about')}
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            About
-          </button>
-          <button
-            onClick={() => scrollToSection('experience')}
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            Experience
-          </button>
-          <button
-            onClick={() => scrollToSection('projects')}
-            className="text-muted-foreground hover:text-primary transition-colors"
-          >
-            Projects
-          </button>
+          {SECTIONS.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => scrollToSection(section.id)}
+              className={
+                (activeSection === section.id
+                  ? "text-foreground border-b-2 border-primary "
+                  : "text-muted-foreground ") +
+                "hover:text-primary transition-colors px-1.5 py-0.5"
+              }
+            >
+              {section.label}
+            </button>
+          ))}
         </div>
-
         <div className="flex items-center gap-3">
-          <Button 
+          <Button
             variant="outline"
             size="sm"
             onClick={downloadResume}
@@ -61,7 +80,7 @@ const Navigation = () => {
             <Download className="w-4 h-4 mr-2" />
             Resume
           </Button>
-          <Button 
+          <Button
             variant="default"
             onClick={() => window.open(`mailto:${config.personal.email}`, '_blank')}
             className="bg-primary text-primary-foreground hover:bg-primary/90"

@@ -7,7 +7,7 @@
     "location": "Hyderabad, India",
     "summary": "Full-Stack developer with 4.5+ years of professional experience, specializing in TypeScript, ReactJS, and NodeJS. Core contributor to business intelligence tools and logging micro-services, achieving significant performance improvements and scalability. Proven track record in mentoring, component library development, and data visualization. Recognized for significant performance improvements and effective data visualization solutions.",
     "social": {
-      "linkedin": "https://linkedin.com/in/utkarsh-garg",
+      "linkedin": "https://linkedin.com/in/utkarsh22garg",
       "medium": "https://medium.com/@utkarsh22garg",
       "github": "https://github.com/utkarsh22garg"
     }
@@ -63,7 +63,11 @@
     {
       "name": "Chat Encrypter",
       "date": "Oct 2018",
-      "technologies": ["Java", "Cryptography", "Socket Programming"],
+      "technologies": [
+        "Java",
+        "Cryptography",
+        "Socket Programming"
+      ],
       "description": "Chat Application with end-to-end symmetric encryption with file transfer facility",
       "github": "https://github.com/utkarsh22garg/ChatEncrypter",
       "features": [
@@ -74,9 +78,34 @@
     }
   ],
   "skills": {
-    "languages": ["JavaScript", "TypeScript", "Python", "C", "C++", "Java", "HTML", "CSS", "SQL"],
-    "libraries": ["NodeJS", "ReactJS", "Redux", "react-query", "Material-UI", "Python-Dask", "React Testing Library", "Mocha", "Storybook"],
-    "tools": ["JupyterLab", "Visual Studio Code", "Linux", "Git"]
+    "languages": [
+      "JavaScript",
+      "TypeScript",
+      "Python",
+      "C",
+      "C++",
+      "Java",
+      "HTML",
+      "CSS",
+      "SQL"
+    ],
+    "libraries": [
+      "NodeJS",
+      "ReactJS",
+      "Redux",
+      "react-query",
+      "Material-UI",
+      "Python-Dask",
+      "React Testing Library",
+      "Mocha",
+      "Storybook"
+    ],
+    "tools": [
+      "JupyterLab",
+      "Visual Studio Code",
+      "Linux",
+      "Git"
+    ]
   },
   "awards": [
     {
