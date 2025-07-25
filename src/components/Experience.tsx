@@ -44,7 +44,7 @@ const Experience = () => {
                 <p className="text-card-foreground mb-6 leading-relaxed">
                   {exp.description}
                 </p>
-                
+
                 <div className="space-y-4">
                   <h4 className="text-lg font-semibold text-foreground">Key Achievements:</h4>
                   <ul className="space-y-3">
@@ -68,18 +68,6 @@ const Experience = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
-
-        {/* Timeline visualization */}
-        <div className="mt-16 relative">
-          <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-border"></div>
-          <div className="flex flex-col items-center space-y-8">
-            <div className="w-4 h-4 bg-primary rounded-full border-4 border-background"></div>
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-foreground">4.5+ Years</h3>
-              <p className="text-muted-foreground">Professional Experience</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
