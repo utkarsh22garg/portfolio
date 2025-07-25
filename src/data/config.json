@@ -1,0 +1,103 @@
+{
+  "personal": {
+    "name": "Utkarsh Garg",
+    "title": "Tech Lead & Full-Stack Developer",
+    "email": "utkarsh22garg@gmail.com",
+    "phone": "+91 – 7753839036",
+    "location": "Hyderabad, India",
+    "summary": "Full-Stack developer with 4.5+ years of professional experience, specializing in TypeScript, ReactJS, and NodeJS. Core contributor to business intelligence tools and logging micro-services, achieving significant performance improvements and scalability. Proven track record in mentoring, component library development, and data visualization. Recognized for significant performance improvements and effective data visualization solutions.",
+    "social": {
+      "linkedin": "https://linkedin.com/in/utkarsh-garg",
+      "medium": "https://medium.com/@utkarsh22garg",
+      "github": "https://github.com/utkarsh22garg"
+    }
+  },
+  "education": {
+    "degree": "Bachelor of Technology, Computer Science & Engineering",
+    "institution": "Motilal Nehru National Institute of Technology (NIT) Allahabad",
+    "duration": "2016-2020",
+    "cgpa": "9.16/10"
+  },
+  "experience": [
+    {
+      "position": "Tech Lead",
+      "company": "D. E. Shaw & Co.",
+      "location": "Hyderabad, India",
+      "duration": "July 2020 – Current",
+      "description": "Member of the Web Infrastructure team, contributing to scalable frontend and backend development. Focuses on enhancing business intelligence tools, improving UI component libraries, optimizing performance, and mentoring team members.",
+      "achievements": [
+        "Developed and maintained a comprehensive business intelligence tool using TypeScript, ReactJS, and Storybook",
+        "Implemented a robust Logger micro-service API with NodeJS, optimizing endpoints for large batched requests and effective data retrieval",
+        "Created a usage logging insights tool in JavaScript and Python, aiding in data-driven decision making",
+        "Increased data processing efficiency by 12x by integrating Dask for parallel-distributed computing in backend analytics",
+        "Led the redevelopment of the React UI component library on Material UI and improved component development methodology",
+        "Owned and maintained five projects to keep them updated and made sure developers use these modules without any hassle",
+        "Actively participated in talent acquisition, interviewing candidates at IITs and contributing to the off-campus recruitment program"
+      ]
+    },
+    {
+      "position": "Placement Coordinator",
+      "company": "NIT Allahabad",
+      "location": "Prayagraj, India",
+      "duration": "July 2019 – May 2020",
+      "description": "Coordinated placement activities and student preparation programs.",
+      "achievements": [
+        "Conducted Mock tests and interviews to prepare students for college placements and internships",
+        "Organized various training sessions and PPT's of several firms for crowd of 300-400 students",
+        "Handled various logistics with the help of my team and made sure recruitment session by a company are organized successfully from start to end"
+      ]
+    },
+    {
+      "position": "Summer Intern",
+      "company": "Visa Inc.",
+      "location": "Bangalore, India",
+      "duration": "May 2019 – July 2019",
+      "description": "Contributed to the development and maintenance of a status tracker using ReactJS and Redux.",
+      "achievements": [
+        "Improved SDLC process by creating a status tracker, replacing the outdated email tracking method",
+        "Created GoLang endpoints to fetch and update tracker configuration and data"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Chat Encrypter",
+      "date": "Oct 2018",
+      "technologies": ["Java", "Cryptography", "Socket Programming"],
+      "description": "Chat Application with end-to-end symmetric encryption with file transfer facility",
+      "github": "https://github.com/utkarsh22garg/ChatEncrypter",
+      "features": [
+        "End-to-end encryption for secure messaging",
+        "File transfer capability",
+        "Real-time communication using socket programming"
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["JavaScript", "TypeScript", "Python", "C", "C++", "Java", "HTML", "CSS", "SQL"],
+    "libraries": ["NodeJS", "ReactJS", "Redux", "react-query", "Material-UI", "Python-Dask", "React Testing Library", "Mocha", "Storybook"],
+    "tools": ["JupyterLab", "Visual Studio Code", "Linux", "Git"]
+  },
+  "awards": [
+    {
+      "title": "Senior Technical Member Promotion",
+      "description": "Promoted to Senior member Technical in 1.5 years for being a star performer in D.E. Shaw",
+      "date": "2022"
+    },
+    {
+      "title": "Merit Scholarship",
+      "description": "Awarded Merit Scholarship award for standing in top 18 out of 176 students in academics during the college",
+      "date": "2018"
+    },
+    {
+      "title": "Global Coding Challenge",
+      "description": "Secured global rank 317 out of 10000+ participants in January long challenge 2019 conducted by CodeChef",
+      "date": "2019"
+    },
+    {
+      "title": "Android Development Event",
+      "description": "Secured a position in top 5 out of 31 teams in annual android event DROISRUSH conducted by MNNIT Allahabad",
+      "date": "2018"
+    }
+  ]
+}
