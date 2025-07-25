@@ -4,6 +4,7 @@ import { Download } from "lucide-react";
 import config from "@/data/config.json";
 import ugLogo from "@/assets/ug_logo.png";
 import resume from "@/assets/resume.pdf";
+import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 const SECTIONS = [
   { id: "home", label: "Home" },
@@ -91,6 +92,7 @@ const Navigation = () => {
           </Button>
         </div>
       </div>
+      <ScrollProgress className="top-[73px] from-primary via-primary to-accent" />
     </nav>
   );
 };
