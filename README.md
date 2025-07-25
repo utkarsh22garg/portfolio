@@ -1,10 +1,12 @@
 # Utkarsh Garg - Developer Portfolio
 
+[![Deploy to GitHub Pages](https://github.com/utkarsh22garg/portfolio/actions/workflows/deploy-to-pages.yaml/badge.svg)](https://utkarsh22garg.github.io/portfolio/)
+
 A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS, showcasing professional experience, projects, and skills.
 
 ## 🚀 Live Demo
 
-Visit the live portfolio: [Your Portfolio URL]
+Visit the live portfolio: [https://utkarsh22garg.github.io/portfolio/](https://utkarsh22garg.github.io/portfolio/)
 
 ## ✨ Features
 
