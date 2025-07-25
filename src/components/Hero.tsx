@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import config from "@/data/config.json";
+import profileImage from "@/assets/profile-image.png";
 
 const Hero = () => {
   const handleLetsTalk = () => {
@@ -104,7 +105,7 @@ const Hero = () => {
             {/* Profile Image */}
             <div className="relative z-10">
               <img 
-                src="/lovable-uploads/e63aca52-de9d-4d92-935e-f8191d5344cc.png" 
+                src={profileImage} 
                 alt={config.personal.name}
                 className="w-80 h-auto object-contain"
               />
