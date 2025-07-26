@@ -114,7 +114,7 @@ const Hero = () => {
             <div className="absolute inset-0 space-y-4">
               {/* Circular badge for experience */}
               <div className="absolute top-0 right-20 animate-pulse">
-                <div className="w-32 h-32 rounded-full border-2 border-primary bg-background/50 backdrop-blur-sm flex flex-col items-center justify-center">
+                <div className="w-32 h-32 rounded-full border-2 border-primary bg-background/50 backdrop-blur-xs flex flex-col items-center justify-center">
                   <span className="text-2xl font-bold text-primary">4.5+</span>
                   <span className="text-xs text-muted-foreground text-center">Years<br />Experience</span>
                 </div>
