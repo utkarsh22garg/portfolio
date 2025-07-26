@@ -107,6 +107,15 @@
       "Git"
     ]
   },
+  "publications": [
+    {
+      "name": "Prediction of Emotions from the Audio Speech Signals using MFCC, MEL and Chroma",
+      "journal": "IEEE",
+      "date": "Nov 3, 2020",
+      "description": "Emotion recognition from audio signals is a recent research topic in Human-Computer Interaction. A speech emotion recognition (SER) system is developed to detect emotion from the audio speech signals. SER is created by extracting various audio features and combining them differently to create feature vectors. The efficiency of emotion recognition system depends on type of features extracted and classifier used for detection of emotions. The feature vector contains important audio features like MFCC, MEL, and Chroma. Feature vectors are created using two combination of features. Several machine learning paradigms were used for the emotion classification task. Their performances are compared using confusion metrics. The model compares the performances on change in feature vector. The proposed model searches for the best classification algorithm, which has considerable improvement in emotion prediction.",
+      "link": "https://ieeexplore.ieee.org/document/9242635"
+    }
+  ],
   "awards": [
     {
       "title": "Senior Technical Member Promotion",
