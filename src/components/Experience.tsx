@@ -50,7 +50,7 @@ const Experience = () => {
                   <ul className="space-y-3">
                     {exp.achievements.map((achievement, achIndex) => (
                       <li key={achIndex} className="flex items-start gap-3 text-muted-foreground">
-                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 shrink-0"></div>
                         <span className="leading-relaxed">{achievement}</span>
                       </li>
                     ))}
