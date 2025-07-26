@@ -1,8 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  ExternalLink,
+  Code2,
+  Database,
+  Server,
+  Layers,
+  Zap,
+  GitBranch,
+  Terminal,
+  Cpu
+} from "lucide-react";
+import { 
+  SiReact, 
+  SiNodedotjs, 
+  SiTypescript, 
+  SiPython, 
+  SiJavascript,
+  SiRedux,
+  SiGit,
+  SiLangchain,
+  SiLinux
+} from "react-icons/si";
 import config from "@/data/config.json";
-import profileImage from "@/assets/profile-image.png";
 import { FlipText } from "./magicui/flip-text";
+import { OrbitingCircles } from "./magicui/orbiting-circles";
 
 const Hero = () => {
   const handleLetsTalk = () => {
@@ -103,46 +127,101 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right content - Profile image with floating badges */}
-          <div className="relative flex justify-center">
-            {/* Profile Image */}
-            <div className="relative z-10">
-              <img 
-                src={profileImage} 
-                alt={config.personal.name}
-                className="w-80 h-auto object-contain"
-              />
+          {/* Right content - Orbiting circles with tech stack icons */}
+          <div className="relative flex justify-center items-center h-96">
+            {/* Central element */}
+            <div className="relative z-20 w-30 h-30 rounded-full border-2 border-primary bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg">
+              <span className="text-2xl font-bold text-primary">5+</span>
+              <span className="text-xs text-muted-foreground text-center">Years<br />Experience</span>
             </div>
             
-            <div className="absolute inset-0 space-y-4">
-              {/* Circular badge for experience */}
-              <div className="absolute top-0 right-20 animate-pulse">
-                <div className="w-32 h-32 rounded-full border-2 border-primary bg-background/50 backdrop-blur-xs flex flex-col items-center justify-center">
-                  <span className="text-2xl font-bold text-primary">4.5+</span>
-                  <span className="text-xs text-muted-foreground text-center">Years<br />Experience</span>
-                </div>
+            {/* Outer orbit - Main technologies */}
+            <OrbitingCircles
+              className="size-12 border-2 border-primary/20 bg-background/80 backdrop-blur-sm shadow-lg"
+              duration={20}
+              delay={0}
+              radius={100}
+              pathColor="stroke-primary/20"
+            >
+              <div className="flex items-center justify-center w-full h-full text-primary hover:text-primary/80 transition-colors">
+                <Code2 className="w-6 h-6" />
               </div>
-
-              {/* Floating tags */}
-              <div className="absolute top-32 left-12 animate-bounce" style={{ animationDelay: '0.5s' }}>
-                <div className="bg-primary text-primary-foreground px-4 py-2 rounded-lg transform rotate-6 shadow-lg">
-                  <span className="text-sm font-semibold">FULL-STACK</span>
-                  <div className="text-xs">DEVELOPMENT</div>
-                </div>
+              <div className="flex items-center justify-center w-full h-full text-blue-500 hover:text-blue-400 transition-colors">
+                <Layers className="w-6 h-6" />
               </div>
-
-              <div className="absolute top-64 right-8 animate-bounce" style={{ animationDelay: '1s' }}>
-                <div className="bg-accent text-accent-foreground px-4 py-2 rounded-lg transform -rotate-3 shadow-lg">
-                  <span className="text-sm font-semibold">TECH</span>
-                  <div className="text-xs">LEADERSHIP</div>
-                </div>
+              <div className="flex items-center justify-center w-full h-full text-green-500 hover:text-green-400 transition-colors">
+                <Server className="w-6 h-6" />
               </div>
+              <div className="flex items-center justify-center w-full h-full text-yellow-500 hover:text-yellow-400 transition-colors">
+                <Database className="w-6 h-6" />
+              </div>
+            </OrbitingCircles>
 
-              <div className="absolute bottom-20 left-8 animate-bounce" style={{ animationDelay: '1.5s' }}>
-                <div className="bg-secondary text-secondary-foreground px-4 py-2 rounded-lg transform rotate-3 shadow-lg border border-primary">
-                  <span className="text-sm font-semibold">PERFORMANCE</span>
-                  <div className="text-xs">OPTIMIZATION</div>
-                </div>
+            {/* Inner orbit - Supporting technologies */}
+            <OrbitingCircles
+              className="size-10 border-2 border-primary/20 bg-background/60 backdrop-blur-sm shadow-md"
+              duration={15}
+              delay={10}
+              radius={150}
+              reverse
+              pathColor="stroke-primary/20"
+            >
+              <div className="flex items-center justify-center w-full h-full text-orange-500 hover:text-orange-400 transition-colors">
+                <GitBranch className="w-5 h-5" />
+              </div>
+              <div className="flex items-center justify-center w-full h-full text-purple-500 hover:text-purple-400 transition-colors">
+                <Terminal className="w-5 h-5" />
+              </div>
+              <div className="flex items-center justify-center w-full h-full text-red-500 hover:text-red-400 transition-colors">
+                <Zap className="w-5 h-5" />
+              </div>
+            </OrbitingCircles>
+
+            {/* Outer slow orbit - Additional skills */}
+            <OrbitingCircles
+              className="size-8 border border-primary/20 bg-background/40 backdrop-blur-sm shadow-sm"
+              duration={30}
+              delay={5}
+              radius={190}
+              pathColor="stroke-primary/20"
+            >
+              <div className="flex items-center justify-center w-full h-full text-cyan-500 hover:text-cyan-400 transition-colors">
+                <SiLinux className="w-4 h-4" />
+              </div>
+              <div className="flex items-center justify-center w-full h-full text-green-400 hover:text-green-300 transition-colors">
+                <SiLangchain className="w-4 h-4" />
+              </div>
+              <div className="flex items-center justify-center w-full h-full text-orange-400 hover:text-orange-300 transition-colors">
+                <SiGit className="w-4 h-4" />
+              </div>
+            </OrbitingCircles>
+
+            {/* Floating skill badges */}
+            <div className="absolute top-0 left-0 animate-pulse" style={{ animationDelay: '0.5s' }}>
+              <div className="bg-blue-600/10 text-blue-600 px-3 py-1 rounded-full text-xs font-medium border border-blue-600/20 flex items-center gap-1">
+                <SiTypescript className="w-3 h-3" />
+                TypeScript
+              </div>
+            </div>
+            
+            <div className="absolute top-8 right-0 animate-pulse" style={{ animationDelay: '1s' }}>
+              <div className="bg-blue-500/10 text-blue-500 px-3 py-1 rounded-full text-xs font-medium border border-blue-500/20 flex items-center gap-1">
+                <SiReact className="w-3 h-3" />
+                React
+              </div>
+            </div>
+            
+            <div className="absolute bottom-0 left-8 animate-pulse" style={{ animationDelay: '1.5s' }}>
+              <div className="bg-green-600/10 text-green-600 px-3 py-1 rounded-full text-xs font-medium border border-green-600/20 flex items-center gap-1">
+                <SiNodedotjs className="w-3 h-3" />
+                Node.js
+              </div>
+            </div>
+            
+            <div className="absolute bottom-8 right-8 animate-pulse" style={{ animationDelay: '2s' }}>
+              <div className="bg-yellow-500/10 text-yellow-500 px-3 py-1 rounded-full text-xs font-medium border border-yellow-500/20 flex items-center gap-1">
+                <SiPython className="w-3 h-3" />
+                Python
               </div>
             </div>
           </div>

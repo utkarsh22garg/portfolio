@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
             <p className="text-sm text-muted-foreground">
               Building scalable solutions and leading technical teams with {" "}
-              <span className="text-primary">4.5+ years</span> of experience.
+              <span className="text-primary">5+ years</span> of experience.
             </p>
           </div>
 
