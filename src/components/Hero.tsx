@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import config from "@/data/config.json";
 import profileImage from "@/assets/profile-image.png";
+import { FlipText } from "./magicui/flip-text";
 
 const Hero = () => {
   const handleLetsTalk = () => {
@@ -33,9 +34,11 @@ const Hero = () => {
             <div className="relative z-20">
               <div className="mb-6">
                 <span className="text-muted-foreground text-lg">Hello, I'm</span>
-                <h2 className="text-5xl md:text-6xl font-bold text-foreground mt-2">
-                  {config.personal.name}
-                </h2>
+                <div className="flex justify-start">
+                  <FlipText className="text-5xl md:text-6xl font-bold text-foreground mt-2">
+                    {config.personal.name}
+                  </FlipText>
+                </div>
                 <p className="text-xl md:text-2xl text-primary font-semibold mt-2">
                   {config.personal.title}
                 </p>
