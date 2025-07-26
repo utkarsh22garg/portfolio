@@ -42,7 +42,7 @@ const Projects = () => {
                     <ul className="space-y-1">
                       {project.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5 flex-shrink-0"></div>
+                          <div className="w-1.5 h-1.5 bg-accent rounded-full mt-1.5 shrink-0"></div>
                           <span>{feature}</span>
                         </li>
                       ))}
