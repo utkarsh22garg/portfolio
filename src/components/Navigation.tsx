@@ -67,7 +67,7 @@ const Navigation = () => {
                 (activeSection === section.id
                   ? "text-foreground border-b-2 border-primary "
                   : "text-muted-foreground ") +
-                "hover:text-primary transition-colors px-1.5 py-0.5"
+                "hover:text-primary transition-colors px-1.5 py-0.5 cursor-pointer"
               }
             >
               {section.label}

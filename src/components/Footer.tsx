@@ -29,25 +29,25 @@ const Footer = () => {
             <div className="space-y-2">
               <button
                 onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
-                className="block text-muted-foreground hover:text-primary transition-colors"
+                className="block text-muted-foreground hover:text-primary transition-colors cursor-pointer"
               >
                 Home
               </button>
               <button
                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                className="block text-muted-foreground hover:text-primary transition-colors"
+                className="block text-muted-foreground hover:text-primary transition-colors cursor-pointer"
               >
                 About
               </button>
               <button
                 onClick={() => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' })}
-                className="block text-muted-foreground hover:text-primary transition-colors"
+                className="block text-muted-foreground hover:text-primary transition-colors cursor-pointer"
               >
                 Experience
               </button>
               <button
                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="block text-muted-foreground hover:text-primary transition-colors"
+                className="block text-muted-foreground hover:text-primary transition-colors cursor-pointer"
               >
                 Projects
               </button>
