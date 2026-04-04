@@ -1,5 +1,9 @@
 import config from "@/data/config.json";
 
+const projectImages: Record<string, string> = {
+  "Chat Encrypter": "/images/chat-encrypter.jpg",
+};
+
 const placeholderGradients = [
   "linear-gradient(135deg, #2a2a2a, #0e0e0e)",
   "linear-gradient(165deg, #1f1f1f, #131313)",
@@ -32,8 +36,11 @@ const SelectedWorks = () => {
       {projects.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
           {projects.map((project, index) => (
-            <div
+            <a
               key={project.name}
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className={
                 "group cursor-pointer " +
                 (index === 0 ? "md:col-span-12" : index % 2 === 1 ? "md:col-span-8" : "md:col-span-4")
@@ -45,7 +52,15 @@ const SelectedWorks = () => {
                   aspectRatio: index === 0 ? "21/9" : "16/10",
                   background: placeholderGradients[index % placeholderGradients.length],
                 }}
-              />
+              >
+                {projectImages[project.name] && (
+                  <img
+                    src={projectImages[project.name]}
+                    alt={project.name}
+                    className="w-full h-full object-cover grayscale"
+                  />
+                )}
+              </div>
               <div className="flex justify-between items-start">
                 <div>
                   <p className="text-meta text-neutral-500 mb-1">
@@ -54,19 +69,11 @@ const SelectedWorks = () => {
                   <h4 className="text-3xl font-bold text-white">{project.name}</h4>
                   <p className="text-sm text-neutral-400 mt-2 max-w-xl">{project.description}</p>
                 </div>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-3xl text-white group-hover:translate-x-2 transition-transform inline-block ml-4 shrink-0"
-                    aria-label={`View ${project.name} on GitHub`}
-                  >
-                    →
-                  </a>
-                )}
+                <span className="text-3xl text-white group-hover:translate-x-2 transition-transform inline-block ml-4 shrink-0">
+                  →
+                </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       )}

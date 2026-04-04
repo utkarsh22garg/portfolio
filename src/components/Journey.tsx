@@ -1,5 +1,11 @@
 import config from "@/data/config.json";
 
+const journeyImages = [
+  "/images/journey/tech-lead.jpg",
+  "/images/journey/placement-coordinator.jpg",
+  "/images/journey/summer-intern.jpg",
+];
+
 const Journey = () => {
   return (
     <section id="journey" className="pt-40 pb-20 px-12 bg-black">
@@ -39,14 +45,15 @@ const Journey = () => {
               </div>
             </div>
 
-            {/* Grayscale image placeholder */}
+            {/* Grayscale image */}
             <div className="md:col-span-3 pt-4">
-              <div
-                className="h-64 overflow-hidden"
-                style={{
-                  background: `linear-gradient(${135 + index * 30}deg, #2a2a2a, #0e0e0e)`,
-                }}
-              />
+              <div className="h-64 overflow-hidden">
+                <img
+                  src={journeyImages[index]}
+                  alt={exp.position}
+                  className="w-full h-full object-cover grayscale"
+                />
+              </div>
             </div>
           </div>
         ))}
