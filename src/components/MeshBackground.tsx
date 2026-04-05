@@ -19,6 +19,7 @@ const MeshBackground = () => {
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
   const lastMouseRef = useRef<{ x: number; y: number } | null>(null);
   const glowDecayRef = useRef(0);
+  const coordsRef = useRef(new Float64Array(NODE_COUNT * 2));
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -57,7 +58,12 @@ const MeshBackground = () => {
         }
 
         // Compute Delaunay triangulation
-        const coords = new Float64Array(nodesRef.current.flatMap(n => [n.x, n.y]));
+        const nodes = nodesRef.current;
+        const coords = coordsRef.current;
+        for (let i = 0; i < nodes.length; i++) {
+          coords[i * 2]     = nodes[i].x;
+          coords[i * 2 + 1] = nodes[i].y;
+        }
         const delaunay = new Delaunay(coords);
         const { triangles } = delaunay;
 
@@ -125,8 +131,9 @@ const MeshBackground = () => {
     if (!section) return;
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      lastMouseRef.current = mouseRef.current;
+      const pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      mouseRef.current = pos;
+      lastMouseRef.current = { x: pos.x, y: pos.y };
       glowDecayRef.current = 1;
     };
     const onMouseLeave = () => { mouseRef.current = null; };
