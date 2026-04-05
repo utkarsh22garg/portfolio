@@ -19,7 +19,7 @@ const CTASection = () => {
     <section className="px-12 py-64 text-center bg-black">
       <p className="text-meta text-neutral-500 mb-12">HAVE A PROJECT IN MIND?</p>
       <h2
-        className="text-huge font-black uppercase text-white mb-12 hover:italic cursor-pointer transition-all duration-300"
+        className="text-huge font-black uppercase text-white mb-12 cursor-pointer transition-transform duration-500 ease-out hover:-skew-x-6 will-change-transform"
         onClick={handleContact}
       >
         LET&apos;S BUILD

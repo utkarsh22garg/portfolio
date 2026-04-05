@@ -29,7 +29,7 @@ const Publications = () => {
                 {pub.name}
               </h4>
               <p className="text-sm text-neutral-400 leading-relaxed max-w-3xl mb-8">
-                {pub.description.substring(0, 220)}...
+                {pub.description}
               </p>
               {pub.link && (
                 <a

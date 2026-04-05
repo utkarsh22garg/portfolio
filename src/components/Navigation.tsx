@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import resume from "@/assets/resume.pdf";
 import config from "@/data/config.json";
 
 const SECTIONS = [
@@ -18,18 +19,14 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      let current = "home";
+      let current = "";
       for (const section of SECTIONS) {
         const el = document.getElementById(section.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 80 && rect.bottom > 80) {
-            current = section.id;
-            break;
-          }
+        if (el && el.getBoundingClientRect().top <= 80) {
+          current = section.id;
         }
       }
-      setActiveSection(current);
+      if (current) setActiveSection(current);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -61,12 +58,21 @@ const Navigation = () => {
         ))}
       </div>
 
-      <a
-        href={`mailto:${config.personal.email}`}
-        className="text-[11px] font-bold tracking-tighter text-white hover:opacity-70 transition-opacity uppercase"
-      >
-        CONTACT
-      </a>
+      <div className="flex items-center gap-6">
+        <a
+          href={`mailto:${config.personal.email}`}
+          className="text-[11px] font-bold tracking-tighter text-white hover:opacity-70 transition-opacity uppercase"
+        >
+          CONTACT
+        </a>
+        <a
+          href={resume}
+          download={`${config.personal.name}_Resume.pdf`}
+          className="text-[11px] font-bold tracking-tighter text-black bg-white px-4 py-2 hover:opacity-70 transition-opacity uppercase"
+        >
+          RESUME
+        </a>
+      </div>
     </nav>
   );
 };

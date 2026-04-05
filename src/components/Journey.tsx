@@ -36,7 +36,7 @@ const Journey = () => {
               <div className="max-w-2xl space-y-4">
                 <p className="text-neutral-300 leading-snug font-normal">{exp.description}</p>
                 <ul className="space-y-4 border-l border-white/10 pl-6 py-2">
-                  {exp.achievements.slice(0, 3).map((achievement, i) => (
+                  {exp.achievements.map((achievement, i) => (
                     <li key={i} className="text-sm text-neutral-400 leading-relaxed">
                       {achievement}
                     </li>

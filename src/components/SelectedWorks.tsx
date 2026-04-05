@@ -85,11 +85,13 @@ const SelectedWorks = () => {
           {config.awards.map((award) => (
             <div
               key={award.title}
-              className="flex flex-col md:flex-row justify-between items-baseline gap-4 border-t border-white/5 py-8"
+              className="group flex flex-col md:flex-row justify-between items-baseline gap-4 border-t border-white/5 py-8 cursor-default"
             >
-              <h4 className="text-2xl font-bold text-white">{award.title}</h4>
+              <h4 className="text-2xl font-bold text-white transition-transform duration-300 group-hover:translate-x-2">
+                {award.title}
+              </h4>
               <div className="flex items-baseline gap-8 md:max-w-xl">
-                <p className="text-sm text-neutral-400">{award.description}</p>
+                <p className="text-sm text-neutral-400 transition-colors duration-300 group-hover:text-neutral-300">{award.description}</p>
                 <span className="text-meta text-neutral-500 shrink-0">{award.date}</span>
               </div>
             </div>
