@@ -1,9 +1,10 @@
 import config from "@/data/config.json";
 
+const base = import.meta.env.BASE_URL;
 const journeyImages = [
-  "/images/journey/tech-lead.jpg",
-  "/images/journey/placement-coordinator.jpg",
-  "/images/journey/summer-intern.jpg",
+  `${base}images/journey/tech-lead.jpg`,
+  `${base}images/journey/placement-coordinator.jpg`,
+  `${base}images/journey/summer-intern.jpg`,
 ];
 
 const Journey = () => {

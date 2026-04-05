@@ -1,7 +1,8 @@
 import config from "@/data/config.json";
 
+const base = import.meta.env.BASE_URL;
 const projectImages: Record<string, string> = {
-  "Chat Encrypter": "/images/chat-encrypter.jpg",
+  "Chat Encrypter": `${base}images/chat-encrypter.jpg`,
 };
 
 const placeholderGradients = [
