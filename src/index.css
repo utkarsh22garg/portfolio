@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 ::selection {
-  background-color: #ffffff;
-  color: #131313;
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 @plugin 'tailwindcss-animate';
