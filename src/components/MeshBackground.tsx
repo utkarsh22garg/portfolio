@@ -71,7 +71,8 @@ const MeshBackground = () => {
     io.observe(canvas);
 
     // Mouse tracking — attach to canvas's parent (Hero section)
-    const section = canvas.parentElement as HTMLElement;
+    const section = canvas.parentElement;
+    if (!section) return;
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
