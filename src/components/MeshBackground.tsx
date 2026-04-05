@@ -109,9 +109,9 @@ const MeshBackground = () => {
           ctx.strokeStyle = `rgba(255,255,255,${opacity})`;
           ctx.stroke();
         }
-      }
 
-      rafRef.current = requestAnimationFrame(draw);
+        rafRef.current = requestAnimationFrame(draw);
+      }
     };
 
     resize();
@@ -121,7 +121,14 @@ const MeshBackground = () => {
     ro.observe(canvas);
 
     const io = new IntersectionObserver(
-      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      ([entry]) => {
+        if (entry.isIntersecting && !rafRef.current) {
+          rafRef.current = requestAnimationFrame(draw);
+        } else if (!entry.isIntersecting) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = 0;
+        }
+      },
       { threshold: 0 }
     );
     io.observe(canvas);
