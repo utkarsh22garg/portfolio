@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+::selection {
+  background-color: #ffffff;
+  color: #131313;
+}
+
 @plugin 'tailwindcss-animate';
 
 @custom-variant dark (&:is(.dark *));
