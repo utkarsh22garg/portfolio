@@ -52,6 +52,13 @@
     from { height: var(--radix-accordion-content-height); }
     to { height: 0; }
   }
+
+  --animate-scroll-bounce: scroll-bounce 2s ease-in-out infinite;
+
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translate(0, 0); opacity: 1; }
+    50% { transform: translate(6px, 6px); opacity: 0.5; }
+  }
 }
 
 @layer base {

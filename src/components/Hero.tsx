@@ -21,7 +21,7 @@ const Hero = () => {
             </h2>
           </div>
           <div className="md:col-span-4 flex flex-col items-start md:items-end">
-            <span className="text-6xl mb-4 text-white">↘</span>
+            <span className="text-6xl mb-4 text-white inline-block animate-[scroll-bounce_2s_ease-in-out_infinite]">↘&#xFE0E;</span>
             <p className="text-meta text-neutral-500 md:text-right">SCROLL TO DISCOVER</p>
           </div>
         </div>
