@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import resume from "@/assets/resume.pdf";
 import config from "@/data/config.json";
 
@@ -10,15 +10,43 @@ const SECTIONS = [
   { id: "portfolio",    label: "PORTFOLIO" },
 ];
 
+// "UTKARSH GARG" — U (0) and G (8) are the keepers
+const LOGO_CHARS = "UTKARSH GARG".split("");
+const U_INDEX = 0;
+const G_INDEX = 8;
+
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const [collapsed, setCollapsed] = useState(false);
+  // How far G needs to slide left to sit right after U
+  const [gOffset, setGOffset] = useState(0);
+  const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Measure U and G positions so G can translateX to sit right after U
+  useEffect(() => {
+    const measure = () => {
+      const uSpan = charRefs.current[U_INDEX];
+      const gSpan = charRefs.current[G_INDEX];
+      if (uSpan && gSpan) {
+        const uRect = uSpan.getBoundingClientRect();
+        const gRect = gSpan.getBoundingClientRect();
+        // G needs to move left by this amount to be flush after U
+        setGOffset(uRect.right - gRect.left);
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
+      setCollapsed(window.scrollY > 60);
+
       let current = "";
       for (const section of SECTIONS) {
         const el = document.getElementById(section.id);
@@ -37,8 +65,33 @@ const Navigation = () => {
       <button
         onClick={() => scrollToSection("home")}
         className="text-xl font-black tracking-tighter text-white cursor-pointer hover:opacity-70 transition-opacity"
+        style={{ display: "flex", alignItems: "center" }}
       >
-        UTKARSH GARG
+        {LOGO_CHARS.map((char, i) => {
+          const isU = i === U_INDEX;
+          const isG = i === G_INDEX;
+          const isKeeper = isU || isG;
+
+          return (
+            <span
+              key={i}
+              ref={(el) => { charRefs.current[i] = el; }}
+              style={{
+                display: "inline-block",
+                whiteSpace: "pre",
+                willChange: "opacity, transform",
+                opacity: !isKeeper && collapsed ? 0 : 1,
+                transform: isG && collapsed
+                  ? `translateX(${gOffset}px)`
+                  : "translateX(0px)",
+                transition:
+                  "opacity 400ms ease, transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+              }}
+            >
+              {char}
+            </span>
+          );
+        })}
       </button>
 
       <div className="hidden md:flex gap-12">
