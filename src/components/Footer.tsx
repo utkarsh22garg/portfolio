@@ -1,7 +1,24 @@
+import { useEffect, useState } from "react";
 import config from "@/data/config.json";
+import { scrollToTop } from "@/lib/smooth-scroll";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const fmt = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    });
+    const tick = () => setTime(fmt.format(new Date()));
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <footer className="bg-black border-t border-white/5 py-20 px-12 flex flex-col md:flex-row justify-between items-start gap-8">
@@ -12,6 +29,9 @@ const Footer = () => {
         </div>
         <p className="text-meta text-neutral-600 max-w-[200px]">
           BUILDING SCALABLE DIGITAL SYSTEMS.
+        </p>
+        <p className="text-meta text-neutral-600 tabular-nums">
+          HYDERABAD — {time} IST
         </p>
       </div>
 
@@ -59,9 +79,17 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
-      <div className="text-meta text-neutral-600 self-end">
-        © {currentYear} UTKARSH GARG. ALL RIGHTS RESERVED.
+      {/* Copyright + back to top */}
+      <div className="flex flex-col items-start md:items-end gap-6 self-end">
+        <button
+          onClick={scrollToTop}
+          className="text-meta text-neutral-600 hover:text-white transition-colors cursor-pointer"
+        >
+          ↑ BACK TO TOP
+        </button>
+        <div className="text-meta text-neutral-600">
+          © {currentYear} UTKARSH GARG. ALL RIGHTS RESERVED.
+        </div>
       </div>
     </footer>
   );

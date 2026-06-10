@@ -10,6 +10,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --font-sans: 'Archivo', sans-serif;
+  --font-display: 'Anton', 'Archivo', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -110,19 +114,58 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Archivo', sans-serif;
   }
 }
 
 /* Editorial Brutalism utilities */
 .text-huge {
+  font-family: 'Anton', 'Archivo', sans-serif;
+  font-weight: 400;
   font-size: clamp(4rem, 12vw, 16rem);
   line-height: 0.85;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.01em;
 }
 
 .text-meta {
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.6875rem;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
+}
+
+/* Kinetic type: hollow outline variant */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Custom cursor: hide the native one while active */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* Logo affection easter egg */
+@keyframes logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Konami "color leak" easter egg — chartreuse bleeds into the monochrome */
+.color-leak ::selection {
+  background-color: #ccff00;
+  color: #131313;
+}
+.color-leak .text-meta {
+  color: #ccff00;
+}
+.color-leak .scroll-progress {
+  background-color: #ccff00;
+}
+.color-leak .cursor-ring {
+  border-color: #ccff00;
+}
+.color-leak .text-outline {
+  -webkit-text-stroke-color: rgba(204, 255, 0, 0.7);
 }

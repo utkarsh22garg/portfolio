@@ -1,7 +1,14 @@
+import { motion, useReducedMotion } from "motion/react";
 import resume from "@/assets/resume.pdf";
 import config from "@/data/config.json";
+import Magnetic from "@/components/motion/Magnetic";
+import Reveal from "@/components/motion/Reveal";
+
+const HEADLINE = "LET'S BUILD";
 
 const CTASection = () => {
+  const reduce = useReducedMotion();
+
   const handleContact = () => {
     window.open(`mailto:${config.personal.email}`, "_blank");
   };
@@ -17,27 +24,55 @@ const CTASection = () => {
 
   return (
     <section className="px-12 py-64 text-center bg-black">
-      <p className="text-meta text-neutral-500 mb-12">HAVE A PROJECT IN MIND?</p>
-      <h2
-        className="text-huge font-black uppercase text-white mb-12 cursor-pointer transition-transform duration-500 ease-out hover:-skew-x-6 will-change-transform"
-        onClick={handleContact}
-      >
-        LET&apos;S BUILD
-      </h2>
-      <div className="flex flex-col md:flex-row justify-center gap-12 mt-24">
-        <button
+      <Reveal>
+        <p className="text-meta text-neutral-500 mb-12">HAVE A PROJECT IN MIND?</p>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <motion.h2
+          className="text-huge uppercase text-white mb-12 cursor-pointer"
           onClick={handleContact}
-          className="px-12 py-6 bg-white text-black font-bold uppercase tracking-widest text-sm hover:invert transition-all duration-300 cursor-pointer"
+          initial="rest"
+          whileHover={reduce ? undefined : "hover"}
+          animate="rest"
+          data-cursor
         >
-          START A CONVERSATION
-        </button>
-        <button
-          onClick={handleDownloadResume}
-          className="px-12 py-6 border border-white/20 text-white font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
-        >
-          DOWNLOAD RESUME
-        </button>
-      </div>
+          {HEADLINE.split("").map((ch, i) => (
+            <motion.span
+              key={i}
+              className="inline-block will-change-transform"
+              variants={{
+                rest: { y: 0 },
+                hover: {
+                  y: [0, -24, 0],
+                  transition: { delay: i * 0.025, duration: 0.45, ease: "easeInOut" },
+                },
+              }}
+            >
+              {ch === " " ? " " : ch}
+            </motion.span>
+          ))}
+        </motion.h2>
+      </Reveal>
+      <Reveal delay={0.2}>
+        <div className="flex flex-col md:flex-row justify-center gap-12 mt-24">
+          <Magnetic>
+            <button
+              onClick={handleContact}
+              className="px-12 py-6 bg-white text-black font-bold uppercase tracking-widest text-sm hover:invert transition-colors duration-300 cursor-pointer"
+            >
+              START A CONVERSATION
+            </button>
+          </Magnetic>
+          <Magnetic>
+            <button
+              onClick={handleDownloadResume}
+              className="px-12 py-6 border border-white/20 text-white font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer"
+            >
+              DOWNLOAD RESUME
+            </button>
+          </Magnetic>
+        </div>
+      </Reveal>
     </section>
   );
 };
