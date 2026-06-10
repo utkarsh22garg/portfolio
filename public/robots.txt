@@ -1,3 +1,6 @@
+# Hello, robot. The humans are documented at /humans.txt
+# (they also left a shell at the ` key, but that's for the humans)
+
 User-agent: Googlebot
 Allow: /
 

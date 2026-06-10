@@ -1,0 +1,18 @@
+/* TEAM */
+  Engineer: Utkarsh Garg
+  Role: Tech Lead, Web Infrastructure
+  Location: Hyderabad, India
+  Contact: utkarsh22garg [at] gmail.com
+
+/* THANKS */
+  You, for reading the files nobody reads.
+  That's very web-infra of you.
+
+/* SITE */
+  Stack: React, TypeScript, Vite, Tailwind, Motion, Lenis
+  Type: Anton / Archivo / IBM Plex Mono
+  Standards: monochrome, sharp corners, no divider lines
+  Last update: 2026-06-10
+
+/* PSST */
+  The site has a shell. Press ` and type `help`.

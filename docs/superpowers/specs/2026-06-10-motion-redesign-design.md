@@ -75,6 +75,22 @@ Loaded via Google Fonts `<link>` in `index.html` with `display=swap`.
 4. **Logo affection** — clicking the UG logo 5 times rapidly makes it do a
    360° spin and flashes "OK, THAT'S ENOUGH." in the nav.
 
+### 4b. Web-infra easter eggs (added 2026-06-10, round 2)
+
+5. **Web-infra shell** — `` ` `` opens a slide-up terminal
+   (`guest@utkarsh.dev:~$`). Commands: `help`, `whoami`, `ls`,
+   `cd <route>` (navigates via lenis), `cat skills.json|resume.pdf`,
+   `ping`, `uptime`, `echo`, `grid|logs|perf`, `sudo hire me`
+   (opens mailto; any other sudo → "not in the sudoers file"), `clear`,
+   `exit`/Esc. Up/down arrows recall history.
+6. **Log stream** — `L` tails `session.log` bottom-right: structured
+   logs of the visitor's own session (section enters, scroll depth/velocity,
+   clicks, heartbeats). Homage to the Logger micro-service.
+7. **Profiler HUD** — `P` shows live FPS, frame time, DOM node count,
+   JS heap (Chrome), uptime. Homage to the 12× Dask optimization.
+8. **humans.txt** — `/humans.txt` with team/stack info and a shell hint;
+   robots.txt comment points bots (and source-readers) at it.
+
 ### 5. Performance & accessibility
 
 - Animations are transform/opacity only (GPU-composited), honoring the

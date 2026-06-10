@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import Terminal from "@/components/eggs/Terminal";
+import LogStream from "@/components/eggs/LogStream";
+import PerfHUD from "@/components/eggs/PerfHUD";
 
 const KONAMI = [
   "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
@@ -17,14 +20,42 @@ const CONSOLE_ART = `
 `;
 
 /**
- * Hidden layer: console signature, Konami "color leak" mode,
- * and a designer grid overlay on the G key.
+ * Hidden layer: console signature, Konami "color leak" mode, designer grid
+ * (G), log tail (L), profiler (P), and a web-infra shell (backtick).
  */
 const EasterEggs = () => {
   const [toast, setToast] = useState<string | null>(null);
   const [gridOn, setGridOn] = useState(false);
+  const [logsOn, setLogsOn] = useState(false);
+  const [perfOn, setPerfOn] = useState(false);
+  const [termOpen, setTermOpen] = useState(false);
   const bufferRef = useRef<string[]>([]);
   const toastTimerRef = useRef<ReturnType<typeof setTimeout>>();
+
+  const showToast = (msg: string) => {
+    clearTimeout(toastTimerRef.current);
+    setToast(msg);
+    toastTimerRef.current = setTimeout(() => setToast(null), 3200);
+  };
+
+  const toggleOverlay = (overlay: "grid" | "logs" | "perf") => {
+    if (overlay === "grid") {
+      setGridOn((v) => {
+        showToast(v ? "DESIGNER GRID — OFF" : "DESIGNER GRID — ON");
+        return !v;
+      });
+    } else if (overlay === "logs") {
+      setLogsOn((v) => {
+        showToast(v ? "LOG STREAM — STOPPED" : "LOG STREAM — TAILING");
+        return !v;
+      });
+    } else {
+      setPerfOn((v) => {
+        showToast(v ? "PROFILER — OFF" : "PROFILER — ON");
+        return !v;
+      });
+    }
+  };
 
   useEffect(() => {
     console.log(
@@ -36,21 +67,16 @@ const EasterEggs = () => {
       "color: #fff; background: #131313; padding: 6px 10px; font-family: monospace;"
     );
     console.log(
-      "%cP.S. try the Konami code. Or press G.",
+      "%cP.S. try the Konami code. Press G for the grid, L to tail the logs, P for the profiler — or ` to open a shell.",
       "color: #6B7280; font-family: monospace;"
     );
   }, []);
 
   useEffect(() => {
-    const showToast = (msg: string) => {
-      clearTimeout(toastTimerRef.current);
-      setToast(msg);
-      toastTimerRef.current = setTimeout(() => setToast(null), 3200);
-    };
-
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement | null)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
 
       const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       const buffer = [...bufferRef.current, key].slice(-KONAMI.length);
@@ -63,11 +89,12 @@ const EasterEggs = () => {
         return;
       }
 
-      if (key === "g" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        setGridOn((v) => {
-          showToast(v ? "DESIGNER GRID — OFF" : "DESIGNER GRID — ON");
-          return !v;
-        });
+      if (key === "g") toggleOverlay("grid");
+      else if (key === "l") toggleOverlay("logs");
+      else if (key === "p") toggleOverlay("perf");
+      else if (key === "`") {
+        e.preventDefault();
+        setTermOpen((v) => !v);
       }
     };
 
@@ -76,6 +103,7 @@ const EasterEggs = () => {
       window.removeEventListener("keydown", onKey);
       clearTimeout(toastTimerRef.current);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -96,6 +124,10 @@ const EasterEggs = () => {
         </div>
       )}
 
+      {logsOn && <LogStream />}
+      {perfOn && <PerfHUD />}
+      <Terminal open={termOpen} onClose={() => setTermOpen(false)} onToggle={toggleOverlay} />
+
       <AnimatePresence>
         {toast && (
           <motion.div
@@ -103,7 +135,7 @@ const EasterEggs = () => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-8 left-8 z-[95] bg-white text-black px-6 py-4 text-meta font-bold"
+            className="fixed bottom-8 left-8 z-[97] bg-white text-black px-6 py-4 text-meta font-bold"
           >
             {toast}
           </motion.div>
