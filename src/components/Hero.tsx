@@ -10,7 +10,7 @@ import {
 import DecodeText from "@/components/motion/DecodeText";
 import { delay as introDelay } from "@/lib/intro";
 import NeuralRain from "@/components/NeuralRain";
-import WireframeCore from "@/components/WireframeCore";
+import FourierMonogram from "@/components/FourierMonogram";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -132,7 +132,7 @@ const Hero = () => {
       className="relative overflow-hidden min-h-screen flex flex-col justify-end px-6 md:px-12 pb-24 pt-48 bg-black"
     >
       <NeuralRain />
-      <WireframeCore />
+      <FourierMonogram />
       <motion.div
         className="relative z-10"
         style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
