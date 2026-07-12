@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import DecodeText from "@/components/motion/DecodeText";
+import { delay as introDelay } from "@/lib/intro";
 import NeuralRain from "@/components/NeuralRain";
 import WireframeCore from "@/components/WireframeCore";
 
@@ -139,13 +140,13 @@ const Hero = () => {
         <div className="mb-12">
           <DecodeText
             text="TECH LEAD & FULL STACK DEVELOPER"
-            delay={0.3}
+            delay={introDelay(0.3)}
             duration={1.2}
             className="text-meta text-neutral-500 mb-6"
           />
           <h1 className="text-huge uppercase text-white" data-cursor>
-            <KineticLine word="UTKARSH" delayBase={0.3} />
-            <KineticLine word="GARG" delayBase={0.65} />
+            <KineticLine word="UTKARSH" delayBase={introDelay(0.3)} />
+            <KineticLine word="GARG" delayBase={introDelay(0.65)} />
           </h1>
         </div>
 
@@ -155,7 +156,7 @@ const Hero = () => {
               className="text-3xl md:text-5xl font-light tracking-tight text-neutral-400 max-w-4xl"
               initial={{ opacity: 0, y: reduce ? 0 : 32 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1, ease: EASE }}
+              transition={{ duration: 1, delay: introDelay(1), ease: EASE }}
             >
               CRAFTING END-TO-END DIGITAL SYSTEMS THROUGH FULL-STACK EXPERTISE, MINIMALIST EXECUTION, AND RIGOROUS TECHNICAL LEADERSHIP.
             </motion.h2>
@@ -164,12 +165,12 @@ const Hero = () => {
             className="md:col-span-4 flex flex-col items-start md:items-end"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
+            transition={{ duration: 0.8, delay: introDelay(1.4) }}
           >
             <span className="text-6xl mb-4 text-white inline-block animate-[scroll-bounce_2s_ease-in-out_infinite]">↘&#xFE0E;</span>
             <DecodeText
               text="SCROLL TO DISCOVER"
-              delay={1.5}
+              delay={introDelay(1.5)}
               duration={0.9}
               className="text-meta text-neutral-500 md:text-right"
             />
