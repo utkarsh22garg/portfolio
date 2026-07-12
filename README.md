@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://utkarsh22garg.github.io/portfolio/">
+    <img src="public/favicon.svg" alt="UG — Utkarsh Garg logo" width="96" height="96" />
+  </a>
+</p>
+
 # Utkarsh Garg - Developer Portfolio
 
 [![Deploy to GitHub Pages](https://img.shields.io/github/actions/workflow/status/utkarsh22garg/portfolio/deploy-to-pages.yaml)](https://utkarsh22garg.github.io/portfolio/)
