@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="Payment authorization rail diagram with card chip">
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text { font-family: ui-monospace, Menlo, 'IBM Plex Mono', monospace; }
+      .tiny { fill: #6b7280; font-size: 17px; letter-spacing: 3px; }
+      .flow { stroke-dasharray: 3 12; }
+      @media (prefers-reduced-motion: no-preference) {
+        .flow { animation: dash 3s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -150; } }
+      }
+    </style>
+  </defs>
+
+  <rect width="1000" height="1000" fill="#0a0a0b"/>
+  <rect width="1000" height="1000" fill="url(#grid)"/>
+
+  <text x="80" y="200" class="tiny">PAYMENT RAIL</text>
+  <text x="920" y="200" class="tiny" text-anchor="end">TXN STREAM</text>
+
+  <!-- rail through the chip -->
+  <line x1="80" y1="500" x2="920" y2="500" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+  <line x1="80" y1="500" x2="920" y2="500" stroke="#67e8f9" stroke-opacity="0.55" stroke-width="1.5" class="flow"/>
+
+  <!-- transaction pulses -->
+  <g fill="#ffffff" fill-opacity="0.7">
+    <rect x="150" y="494" width="12" height="12"/>
+    <rect x="250" y="494" width="12" height="12"/>
+    <rect x="770" y="494" width="12" height="12"/>
+    <rect x="860" y="494" width="12" height="12"/>
+  </g>
+
+  <!-- card chip -->
+  <g filter="url(#glow)">
+    <rect x="400" y="400" width="200" height="200" rx="28" fill="#0a0a0b" stroke="#67e8f9" stroke-width="1.5"/>
+  </g>
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="1.5">
+    <!-- chip contact pads -->
+    <path d="M400 460 h64 v80 h-64"/>
+    <path d="M600 460 h-64 v80 h64"/>
+    <path d="M464 400 v60"/>
+    <path d="M536 400 v60"/>
+    <path d="M464 600 v-60"/>
+    <path d="M536 600 v-60"/>
+    <rect x="464" y="460" width="72" height="80" rx="10"/>
+  </g>
+  <circle cx="500" cy="500" r="5" fill="#ffffff"/>
+  <text x="500" y="360" class="tiny" text-anchor="middle" fill="#e5e7eb">AUTH NODE</text>
+  <text x="500" y="654" class="tiny" text-anchor="middle" fill="#67e8f9" fill-opacity="0.9" font-size="15">ISO 8583</text>
+
+  <!-- request / response labels -->
+  <text x="150" y="470" class="tiny" font-size="14">MSG 0100 →</text>
+  <text x="860" y="470" class="tiny" font-size="14" text-anchor="end">→ MSG 0110</text>
+
+  <!-- auth ticks -->
+  <g stroke="#ffffff" stroke-opacity="0.5" stroke-width="2" fill="none">
+    <path d="M700 552 l8 8 14 -16"/>
+    <path d="M760 552 l8 8 14 -16"/>
+  </g>
+  <text x="700" y="596" class="tiny" font-size="14">AUTH OK — 142MS</text>
+
+  <!-- throughput bars -->
+  <g fill="#ffffff" fill-opacity="0.25">
+    <rect x="80" y="780" width="14" height="40"/>
+    <rect x="110" y="768" width="14" height="52"/>
+    <rect x="140" y="790" width="14" height="30"/>
+    <rect x="170" y="760" width="14" height="60"/>
+    <rect x="200" y="774" width="14" height="46"/>
+    <rect x="230" y="784" width="14" height="36"/>
+    <rect x="260" y="766" width="14" height="54"/>
+  </g>
+  <text x="920" y="816" class="tiny" font-size="14" text-anchor="end">65K TPS</text>
+</svg>

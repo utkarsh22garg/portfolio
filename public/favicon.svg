@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0a0a0b"/>
+  <!-- UG▊ — blocky terminal letterforms + live cursor -->
+  <g fill="none" stroke="#ffffff" stroke-width="6">
+    <path d="M8 17 V45 H21 V17"/>
+    <path d="M45 20 H32 V45 H45 V33 H38.5"/>
+  </g>
+  <rect x="50" y="39" width="9" height="9" fill="#67e8f9"/>
+</svg>

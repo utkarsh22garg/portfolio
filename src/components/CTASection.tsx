@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import resume from "@/assets/resume.pdf";
 import config from "@/data/config.json";
 import Magnetic from "@/components/motion/Magnetic";
@@ -8,6 +9,12 @@ const HEADLINE = "LET'S BUILD";
 
 const CTASection = () => {
   const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 0.25"],
+  });
+  const headlineScale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
 
   const handleContact = () => {
     window.open(`mailto:${config.personal.email}`, "_blank");
@@ -23,13 +30,14 @@ const CTASection = () => {
   };
 
   return (
-    <section className="px-12 py-64 text-center bg-black">
+    <section ref={sectionRef} className="px-12 py-64 text-center bg-black">
       <Reveal>
         <p className="text-meta text-neutral-500 mb-12">HAVE A PROJECT IN MIND?</p>
       </Reveal>
       <Reveal delay={0.1}>
         <motion.h2
-          className="text-huge uppercase text-white mb-12 cursor-pointer"
+          className="text-huge uppercase text-white mb-12 cursor-pointer will-change-transform"
+          style={reduce ? undefined : { scale: headlineScale }}
           onClick={handleContact}
           initial="rest"
           whileHover={reduce ? undefined : "hover"}

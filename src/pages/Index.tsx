@@ -21,14 +21,17 @@ const Index = () => {
       <CustomCursor />
       <EasterEggs />
       <Navigation />
-      <Hero />
-      <StatsStrip />
-      <TechnicalMastery />
-      <MarqueeBand />
-      <Journey />
-      <Publications />
-      <SelectedWorks />
-      <CTASection />
+      {/* content sits above the footer so it can curtain-reveal it at page end */}
+      <div className="relative z-10 bg-black">
+        <Hero />
+        <StatsStrip />
+        <TechnicalMastery />
+        <MarqueeBand />
+        <Journey />
+        <Publications />
+        <SelectedWorks />
+        <CTASection />
+      </div>
       <Footer />
     </div>
   );

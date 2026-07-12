@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="Matching engine diagram routing candidates to companies">
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text { font-family: ui-monospace, Menlo, 'IBM Plex Mono', monospace; }
+      .tiny { fill: #6b7280; font-size: 17px; letter-spacing: 3px; }
+      .flow { stroke-dasharray: 3 12; }
+      @media (prefers-reduced-motion: no-preference) {
+        .flow { animation: dash 3s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -150; } }
+      }
+    </style>
+  </defs>
+
+  <rect width="1000" height="1000" fill="#0a0a0b"/>
+  <rect width="1000" height="1000" fill="url(#grid)"/>
+
+  <text x="80" y="200" class="tiny">MATCHING ENGINE</text>
+  <text x="920" y="200" class="tiny" text-anchor="end">NITA / T&amp;P</text>
+
+  <!-- left column: candidates -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.5">
+    <circle cx="180" cy="320" r="16"/>
+    <circle cx="180" cy="410" r="16"/>
+    <circle cx="180" cy="500" r="16"/>
+    <circle cx="180" cy="590" r="16"/>
+    <circle cx="180" cy="680" r="16"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.7">
+    <circle cx="180" cy="410" r="5"/>
+    <circle cx="180" cy="590" r="5"/>
+  </g>
+  <text x="180" y="262" class="tiny" text-anchor="middle" font-size="14">CANDIDATES</text>
+
+  <!-- right column: companies -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.5">
+    <rect x="804" y="304" width="32" height="32"/>
+    <rect x="804" y="394" width="32" height="32"/>
+    <rect x="804" y="484" width="32" height="32"/>
+    <rect x="804" y="574" width="32" height="32"/>
+    <rect x="804" y="664" width="32" height="32"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.7">
+    <rect x="812" y="402" width="16" height="16"/>
+    <rect x="812" y="582" width="16" height="16"/>
+  </g>
+  <text x="820" y="262" class="tiny" text-anchor="middle" font-size="14">COMPANIES</text>
+
+  <!-- edges through router -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1">
+    <path d="M196 320 C340 320 380 500 500 500"/>
+    <path d="M196 500 C320 500 380 500 500 500"/>
+    <path d="M196 680 C340 680 380 500 500 500"/>
+    <path d="M500 500 C620 500 660 320 804 320"/>
+    <path d="M500 500 C620 500 660 680 804 680"/>
+    <path d="M500 500 C620 500 660 500 804 500"/>
+  </g>
+  <!-- matched routes highlighted -->
+  <g fill="none" stroke="#67e8f9" stroke-opacity="0.6" stroke-width="1.5" class="flow">
+    <path d="M196 410 C340 410 380 500 500 500 C620 500 660 590 804 590"/>
+    <path d="M196 590 C340 590 380 500 500 500 C620 500 660 410 804 410"/>
+  </g>
+
+  <!-- router core -->
+  <g filter="url(#glow)">
+    <rect x="462" y="462" width="76" height="76" fill="#0a0a0b" stroke="#67e8f9" stroke-width="1.5" transform="rotate(45 500 500)"/>
+  </g>
+  <rect x="478" y="478" width="44" height="44" fill="none" stroke="#ffffff" stroke-opacity="0.3" transform="rotate(45 500 500)"/>
+  <circle cx="500" cy="500" r="5" fill="#ffffff"/>
+  <text x="500" y="614" class="tiny" text-anchor="middle" fill="#67e8f9" fill-opacity="0.9" font-size="15">MATCH</text>
+
+  <!-- stats -->
+  <polyline points="80,806 200,806 200,790 320,790 320,798 440,798 440,780 560,780 560,792 680,792 680,776 800,776 800,786 920,786"
+    fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="80" y="850" class="tiny" font-size="14">QUEUE — 0</text>
+  <text x="920" y="850" class="tiny" font-size="14" text-anchor="end">OFFERS ROUTED</text>
+</svg>

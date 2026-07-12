@@ -1,10 +1,103 @@
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import MeshBackground from "@/components/MeshBackground";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import DecodeText from "@/components/motion/DecodeText";
+import NeuralRain from "@/components/NeuralRain";
+import WireframeCore from "@/components/WireframeCore";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/** One headline line: letters rise out of a clip mask, and shove away from the cursor. */
+const SCRAMBLE = "AKXZVRG0147#<>/";
+const ACCENT = "#67e8f9";
+const REPEL_RADIUS = 150;
+const REPEL_STRENGTH = 26;
+
+/**
+ * One headline character: rises out of the line's clip mask on load, leans
+ * away from the cursor with a spring (proximity repulsion), and decodes
+ * through random glyphs when hovered.
+ */
+const RepelChar = ({ ch, delay }: { ch: string; delay: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 260, damping: 18 });
+  const sy = useSpring(y, { stiffness: 260, damping: 18 });
+  const [display, setDisplay] = useState(ch);
+  const [lockedWidth, setLockedWidth] = useState<number>();
+  const timerRef = useRef<ReturnType<typeof setInterval>>();
+
+  useEffect(() => {
+    const onMove = (e: PointerEvent) => {
+      const el = ref.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const dx = r.left + r.width / 2 - e.clientX;
+      const dy = r.top + r.height / 2 - e.clientY;
+      const d = Math.hypot(dx, dy);
+      if (d < REPEL_RADIUS && d > 0) {
+        const f = (1 - d / REPEL_RADIUS) * REPEL_STRENGTH;
+        x.set((dx / d) * f);
+        y.set((dy / d) * f);
+      } else {
+        x.set(0);
+        y.set(0);
+      }
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [x, y]);
+
+  useEffect(() => () => clearInterval(timerRef.current), []);
+
+  const scramble = () => {
+    const el = ref.current;
+    if (!el || lockedWidth !== undefined) return;
+    setLockedWidth(el.offsetWidth);
+    let ticks = 0;
+    timerRef.current = setInterval(() => {
+      ticks += 1;
+      if (ticks > 7) {
+        clearInterval(timerRef.current);
+        setDisplay(ch);
+        setLockedWidth(undefined);
+      } else {
+        setDisplay(SCRAMBLE[(Math.random() * SCRAMBLE.length) | 0]);
+      }
+    }, 42);
+  };
+
+  return (
+    <motion.span
+      className="inline-block will-change-transform"
+      initial={{ y: "110%" }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1, delay, ease: EASE }}
+    >
+      <motion.span
+        ref={ref}
+        className="inline-block text-center"
+        style={{
+          x: sx,
+          y: sy,
+          width: lockedWidth,
+          color: lockedWidth !== undefined ? ACCENT : undefined,
+        }}
+        onPointerEnter={scramble}
+      >
+        {display}
+      </motion.span>
+    </motion.span>
+  );
+};
+
+/** One headline line: characters rise out of a clip mask, then stay reactive. */
 const KineticLine = ({ word, delayBase }: { word: string; delayBase: number }) => {
   const reduce = useReducedMotion();
 
@@ -15,16 +108,7 @@ const KineticLine = ({ word, delayBase }: { word: string; delayBase: number }) =
   return (
     <span className="block overflow-hidden pb-[0.05em] -mb-[0.05em]">
       {word.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          className="inline-block will-change-transform"
-          initial={{ y: "110%" }}
-          animate={{ y: 0 }}
-          transition={{ duration: 1, delay: delayBase + i * 0.045, ease: EASE }}
-          whileHover={{ y: -14, skewX: -8, transition: { duration: 0.25 } }}
-        >
-          {ch}
-        </motion.span>
+        <RepelChar key={i} ch={ch} delay={delayBase + i * 0.045} />
       ))}
     </span>
   );
@@ -46,20 +130,19 @@ const Hero = () => {
       id="home"
       className="relative overflow-hidden min-h-screen flex flex-col justify-end px-12 pb-24 pt-48 bg-black"
     >
-      <MeshBackground />
+      <NeuralRain />
+      <WireframeCore />
       <motion.div
         className="relative z-10"
         style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
       >
         <div className="mb-12">
-          <motion.p
+          <DecodeText
+            text="TECH LEAD & FULL STACK DEVELOPER"
+            delay={0.3}
+            duration={1.2}
             className="text-meta text-neutral-500 mb-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            TECH LEAD &amp; FULL STACK DEVELOPER
-          </motion.p>
+          />
           <h1 className="text-huge uppercase text-white" data-cursor>
             <KineticLine word="UTKARSH" delayBase={0.3} />
             <KineticLine word="GARG" delayBase={0.65} />
@@ -84,7 +167,12 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 1.4 }}
           >
             <span className="text-6xl mb-4 text-white inline-block animate-[scroll-bounce_2s_ease-in-out_infinite]">↘&#xFE0E;</span>
-            <p className="text-meta text-neutral-500 md:text-right">SCROLL TO DISCOVER</p>
+            <DecodeText
+              text="SCROLL TO DISCOVER"
+              delay={1.5}
+              duration={0.9}
+              className="text-meta text-neutral-500 md:text-right"
+            />
           </motion.div>
         </div>
       </motion.div>

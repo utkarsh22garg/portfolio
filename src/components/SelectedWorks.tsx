@@ -1,10 +1,14 @@
+import { motion, useReducedMotion } from "motion/react";
 import config from "@/data/config.json";
+import DrawLine from "@/components/motion/DrawLine";
 import KineticHeading from "@/components/motion/KineticHeading";
 import Reveal from "@/components/motion/Reveal";
 
+const EASE = [0.16, 1, 0.3, 1] as const;
+
 const base = import.meta.env.BASE_URL;
 const projectImages: Record<string, string> = {
-  "Chat Encrypter": `${base}images/chat-encrypter.jpg`,
+  "Chat Encrypter": `${base}images/chat-encrypter.svg`,
 };
 
 const placeholderGradients = [
@@ -13,6 +17,60 @@ const placeholderGradients = [
   "linear-gradient(120deg, #353535, #1b1b1b)",
   "linear-gradient(150deg, #2a2a2a, #131313)",
 ];
+
+/**
+ * Curtain reveal built from transforms only: the wrapper slides up from the
+ * container's bottom edge while the image counter-translates, so the artwork
+ * appears unveiled in place (the parent already clips via overflow-hidden).
+ */
+const CurtainImage = ({ src, alt }: { src: string; alt: string }) => {
+  const reduce = useReducedMotion();
+
+  const img = (
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
+    />
+  );
+
+  if (reduce) {
+    return (
+      <motion.div
+        className="h-full w-full"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.9 }}
+      >
+        {img}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="h-full w-full"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+    >
+      <motion.div
+        className="h-full w-full"
+        variants={{ hidden: { y: "102%" }, visible: { y: "0%" } }}
+        transition={{ duration: 1.2, ease: EASE }}
+      >
+        <motion.div
+          className="h-full w-full"
+          variants={{ hidden: { y: "-102%", scale: 1.15 }, visible: { y: "0%", scale: 1 } }}
+          transition={{ duration: 1.2, ease: EASE }}
+        >
+          {img}
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const SelectedWorks = () => {
   const projects = config.projects;
@@ -63,11 +121,7 @@ const SelectedWorks = () => {
                   }}
                 >
                   {projectImages[project.name] && (
-                    <img
-                      src={projectImages[project.name]}
-                      alt={project.name}
-                      className="w-full h-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
-                    />
+                    <CurtainImage src={projectImages[project.name]} alt={project.name} />
                   )}
                 </div>
                 <div className="flex justify-between items-start">
@@ -96,7 +150,8 @@ const SelectedWorks = () => {
         <div className="space-y-0">
           {config.awards.map((award, i) => (
             <Reveal key={award.title} delay={i * 0.08} y={32}>
-              <div className="group flex flex-col md:flex-row justify-between items-baseline gap-4 border-t border-white/5 py-8 cursor-default">
+              <DrawLine className="bg-white/5" delay={i * 0.08} />
+              <div className="group flex flex-col md:flex-row justify-between items-baseline gap-4 py-8 cursor-default">
                 <h4 className="text-2xl font-bold text-white transition-transform duration-300 group-hover:translate-x-2">
                   {award.title}
                 </h4>

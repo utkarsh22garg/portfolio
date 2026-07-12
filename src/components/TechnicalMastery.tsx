@@ -1,3 +1,4 @@
+import DrawLine from "@/components/motion/DrawLine";
 import KineticHeading from "@/components/motion/KineticHeading";
 import Reveal from "@/components/motion/Reveal";
 
@@ -47,8 +48,12 @@ const TechnicalMastery = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-12">
         {columns.map((col, colIndex) => (
           <Reveal key={col.index} delay={colIndex * 0.12}>
-            <div className="group border-t border-white/10 pt-10 hover:border-white transition-colors duration-500 h-full">
-              <div className="mb-12">
+            <div className="group h-full">
+              <DrawLine
+                className="bg-white/10 group-hover:bg-white transition-colors duration-500"
+                delay={colIndex * 0.12}
+              />
+              <div className="mb-12 pt-10">
                 <h4 className="text-meta font-bold text-white/40 group-hover:text-white transition-colors">
                   {col.index} / {col.label}
                 </h4>

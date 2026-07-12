@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="900" viewBox="0 0 2100 900" role="img" aria-label="Diagram of an end-to-end encrypted channel between two socket nodes">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text { font-family: ui-monospace, Menlo, 'IBM Plex Mono', monospace; }
+      .meta { fill: #9ca3af; font-size: 20px; letter-spacing: 6px; }
+      .tiny { fill: #6b7280; font-size: 16px; letter-spacing: 3px; }
+      .byte { font-size: 22px; letter-spacing: 2px; }
+      .flow { stroke-dasharray: 4 14; }
+      @media (prefers-reduced-motion: no-preference) {
+        .flow { animation: dash 3.2s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -180; } }
+      }
+    </style>
+  </defs>
+
+  <rect width="2100" height="900" fill="#0a0a0b"/>
+  <rect width="2100" height="900" fill="url(#grid)"/>
+
+  <!-- corner registration marks -->
+  <g stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5">
+    <path d="M60 90V60h30M2040 60h-30M2040 60v30M60 810v30h30M2040 840v-30M2010 840h30"/>
+  </g>
+
+  <!-- top / bottom metadata -->
+  <text x="120" y="128" class="meta">CHAT ENCRYPTER</text>
+  <text x="1980" y="128" class="meta" text-anchor="end">SOCKET://:9090</text>
+  <text x="120" y="796" class="tiny">E2E SYMMETRIC ENCRYPTION</text>
+  <text x="1980" y="796" class="tiny" text-anchor="end">FILE TRANSFER — ENABLED</text>
+
+  <!-- channel spine -->
+  <line x1="330" y1="450" x2="1770" y2="450" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+  <line x1="330" y1="450" x2="1770" y2="450" stroke="#67e8f9" stroke-opacity="0.55" stroke-width="1.5" class="flow"/>
+
+  <!-- NODE A -->
+  <g>
+    <circle cx="330" cy="450" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1.5"/>
+    <circle cx="330" cy="450" r="44" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
+    <circle cx="330" cy="450" r="7" fill="#ffffff"/>
+    <text x="330" y="352" class="tiny" text-anchor="middle">NODE_A</text>
+    <text x="330" y="560" class="tiny" text-anchor="middle" fill="#4b5563">SENDER</text>
+  </g>
+
+  <!-- NODE B -->
+  <g>
+    <circle cx="1770" cy="450" r="64" fill="none" stroke="#ffffff" stroke-opacity="0.7" stroke-width="1.5"/>
+    <circle cx="1770" cy="450" r="44" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
+    <circle cx="1770" cy="450" r="7" fill="#ffffff"/>
+    <text x="1770" y="352" class="tiny" text-anchor="middle">NODE_B</text>
+    <text x="1770" y="560" class="tiny" text-anchor="middle" fill="#4b5563">RECEIVER</text>
+  </g>
+
+  <!-- plaintext blocks (left of key) -->
+  <g>
+    <g fill="none" stroke="#ffffff" stroke-opacity="0.5">
+      <rect x="470" y="424" width="52" height="52"/>
+      <rect x="546" y="424" width="52" height="52"/>
+      <rect x="622" y="424" width="52" height="52"/>
+      <rect x="698" y="424" width="52" height="52"/>
+      <rect x="774" y="424" width="52" height="52"/>
+    </g>
+    <g class="byte" fill="#e5e7eb" text-anchor="middle">
+      <text x="496" y="458">H</text>
+      <text x="572" y="458">E</text>
+      <text x="648" y="458">L</text>
+      <text x="724" y="458">L</text>
+      <text x="800" y="458">O</text>
+    </g>
+    <text x="470" y="398" class="tiny" fill="#4b5563">PLAINTEXT</text>
+  </g>
+
+  <!-- cipher core -->
+  <g filter="url(#glow)">
+    <rect x="984" y="384" width="132" height="132" fill="#0a0a0b" stroke="#67e8f9" stroke-width="1.5" transform="rotate(45 1050 450)"/>
+  </g>
+  <rect x="1006" y="406" width="88" height="88" fill="none" stroke="#ffffff" stroke-opacity="0.3" transform="rotate(45 1050 450)"/>
+  <!-- keyhole glyph -->
+  <g stroke="#ffffff" stroke-width="2" fill="none">
+    <circle cx="1050" cy="437" r="14"/>
+    <path d="M1050 451v32" stroke-linecap="round"/>
+  </g>
+  <text x="1050" y="300" class="tiny" text-anchor="middle">KEY EXCHANGE</text>
+  <text x="1050" y="628" class="meta" text-anchor="middle" fill="#67e8f9" fill-opacity="0.9" font-size="18">AES — SYMMETRIC</text>
+
+  <!-- ciphertext blocks (right of key) -->
+  <g>
+    <g fill="#ffffff" fill-opacity="0.08" stroke="#ffffff" stroke-opacity="0.5">
+      <rect x="1274" y="424" width="52" height="52"/>
+      <rect x="1350" y="424" width="52" height="52"/>
+      <rect x="1426" y="424" width="52" height="52"/>
+      <rect x="1502" y="424" width="52" height="52"/>
+      <rect x="1578" y="424" width="52" height="52"/>
+    </g>
+    <g class="byte" fill="#9ca3af" text-anchor="middle" font-size="18">
+      <text x="1300" y="456">9F</text>
+      <text x="1376" y="456">3C</text>
+      <text x="1452" y="456">7A</text>
+      <text x="1528" y="456">E1</text>
+      <text x="1604" y="456">D4</text>
+    </g>
+    <text x="1630" y="398" class="tiny" fill="#4b5563" text-anchor="end">CIPHERTEXT</text>
+  </g>
+
+  <!-- signal vs noise traces -->
+  <path d="M470 700 q 45 -40 90 0 t 90 0 t 90 0 t 90 0" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5"/>
+  <polyline points="1274,700 1300,668 1318,724 1346,682 1372,712 1398,662 1424,718 1452,690 1478,726 1504,666 1530,706 1556,678 1582,716 1608,688 1630,700"
+    fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1.5"/>
+  <text x="470" y="748" class="tiny" fill="#374151">SIGNAL</text>
+  <text x="1630" y="748" class="tiny" fill="#374151" text-anchor="end">NOISE</text>
+</svg>

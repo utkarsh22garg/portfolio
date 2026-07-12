@@ -1,4 +1,5 @@
 import Counter from "@/components/motion/Counter";
+import DrawLine from "@/components/motion/DrawLine";
 import Reveal from "@/components/motion/Reveal";
 
 const stats = [
@@ -11,6 +12,7 @@ const stats = [
 const StatsStrip = () => {
   return (
     <section className="bg-[#0e0e0e] px-12 py-24">
+      <DrawLine className="bg-white/10 mb-16" />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
         {stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.08}>

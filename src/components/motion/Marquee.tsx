@@ -35,6 +35,8 @@ const Marquee = ({ children, baseVelocity = 2.5 }: MarqueeProps) => {
   const velocityFactor = useTransform(smoothVelocity, [-1200, 0, 1200], [-4, 0, 4], {
     clamp: false,
   });
+  // band leans into scroll velocity — classic kinetic-type skew
+  const skewX = useTransform(smoothVelocity, [-1200, 1200], [3, -3]);
   const directionRef = useRef(1);
 
   // Four copies are rendered, so one copy = 25% of the track.
@@ -52,7 +54,7 @@ const Marquee = ({ children, baseVelocity = 2.5 }: MarqueeProps) => {
 
   return (
     <div className="overflow-hidden whitespace-nowrap">
-      <motion.div className="inline-flex w-max" style={{ x }}>
+      <motion.div className="inline-flex w-max" style={reduce ? { x } : { x, skewX }}>
         {[0, 1, 2, 3].map((i) => (
           <span key={i} className="flex shrink-0 items-baseline" aria-hidden={i > 0}>
             {children}

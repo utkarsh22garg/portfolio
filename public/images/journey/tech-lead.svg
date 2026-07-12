@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000" role="img" aria-label="System orchestration topology diagram">
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M50 0H0V50" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      text { font-family: ui-monospace, Menlo, 'IBM Plex Mono', monospace; }
+      .tiny { fill: #6b7280; font-size: 17px; letter-spacing: 3px; }
+      .flow { stroke-dasharray: 3 12; }
+      @media (prefers-reduced-motion: no-preference) {
+        .flow { animation: dash 3s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -150; } }
+      }
+    </style>
+  </defs>
+
+  <rect width="1000" height="1000" fill="#0a0a0b"/>
+  <rect width="1000" height="1000" fill="url(#grid)"/>
+
+  <text x="80" y="200" class="tiny">SYS / ORCHESTRATION</text>
+  <text x="920" y="200" class="tiny" text-anchor="end">v3.1</text>
+
+  <!-- root node -->
+  <g filter="url(#glow)">
+    <circle cx="500" cy="330" r="36" fill="#0a0a0b" stroke="#67e8f9" stroke-width="1.5"/>
+  </g>
+  <circle cx="500" cy="330" r="6" fill="#ffffff"/>
+  <text x="500" y="278" class="tiny" text-anchor="middle" fill="#e5e7eb">LEAD</text>
+
+  <!-- edges root -> tier 1 -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="1.5">
+    <path d="M500 366 v60"/>
+    <path d="M500 366 C500 430 240 420 240 490"/>
+    <path d="M500 366 C500 430 760 420 760 490"/>
+  </g>
+  <path d="M500 366 v60" stroke="#67e8f9" stroke-opacity="0.6" stroke-width="1.5" fill="none" class="flow"/>
+
+  <!-- tier 1 nodes -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.65" stroke-width="1.5">
+    <rect x="212" y="490" width="56" height="56"/>
+    <rect x="472" y="454" width="56" height="56"/>
+    <rect x="732" y="490" width="56" height="56"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="240" cy="518" r="4"/>
+    <circle cx="500" cy="482" r="4"/>
+    <circle cx="760" cy="518" r="4"/>
+  </g>
+  <text x="240" y="580" class="tiny" text-anchor="middle" font-size="14">API</text>
+  <text x="500" y="546" class="tiny" text-anchor="middle" font-size="14">CORE</text>
+  <text x="760" y="580" class="tiny" text-anchor="middle" font-size="14">DATA</text>
+
+  <!-- edges tier 1 -> service grid -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.15" stroke-width="1">
+    <path d="M240 546 C240 620 180 610 180 660"/>
+    <path d="M240 546 C240 620 300 610 300 660"/>
+    <path d="M500 510 C500 600 420 600 420 660"/>
+    <path d="M500 510 C500 600 580 600 580 660"/>
+    <path d="M760 546 C760 620 700 610 700 660"/>
+    <path d="M760 546 C760 620 820 610 820 660"/>
+  </g>
+
+  <!-- service grid -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.4">
+    <rect x="164" y="660" width="32" height="32"/>
+    <rect x="284" y="660" width="32" height="32"/>
+    <rect x="404" y="660" width="32" height="32"/>
+    <rect x="564" y="660" width="32" height="32"/>
+    <rect x="684" y="660" width="32" height="32"/>
+    <rect x="804" y="660" width="32" height="32"/>
+  </g>
+  <g fill="#67e8f9" fill-opacity="0.9">
+    <rect x="412" y="668" width="16" height="16"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.35">
+    <rect x="172" y="668" width="16" height="16"/>
+    <rect x="292" y="668" width="16" height="16"/>
+    <rect x="572" y="668" width="16" height="16"/>
+    <rect x="692" y="668" width="16" height="16"/>
+    <rect x="812" y="668" width="16" height="16"/>
+  </g>
+
+  <!-- latency sparkline -->
+  <polyline points="80,806 160,798 240,810 320,792 400,804 480,786 560,800 640,782 720,796 800,778 880,790 920,784"
+    fill="none" stroke="#ffffff" stroke-opacity="0.3" stroke-width="1.5"/>
+  <text x="80" y="850" class="tiny" font-size="14">P99 — 12MS</text>
+  <text x="920" y="850" class="tiny" font-size="14" text-anchor="end">UPTIME 99.99</text>
+</svg>

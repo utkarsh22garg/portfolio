@@ -16,12 +16,25 @@ const LOGO_CHARS = "UTKARSH GARG".split("");
 const U_INDEX = 0;
 const G_INDEX = 8;
 
+const SCRAMBLE_GLYPHS = "AKXZVRG0147#<>/";
+const ACCENT = "#67e8f9";
+
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [collapsed, setCollapsed] = useState(false);
+  const [hovered, setHovered] = useState(false);
   // How far G needs to slide left to sit right after U
   const [gOffset, setGOffset] = useState(0);
   const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  // Decode scramble: per-char displayed glyph, active flag, and width lock
+  const [display, setDisplay] = useState<string[]>(LOGO_CHARS);
+  const [scrambling, setScrambling] = useState<boolean[]>(() => LOGO_CHARS.map(() => false));
+  const [lockedWidths, setLockedWidths] = useState<(number | undefined)[]>(() =>
+    LOGO_CHARS.map(() => undefined)
+  );
+  const scramblingRef = useRef<boolean[]>(LOGO_CHARS.map(() => false));
+  const timersRef = useRef<number[]>([]);
+  const reduceRef = useRef(false);
   // Logo affection easter egg
   const [spinning, setSpinning] = useState(false);
   const [annoyed, setAnnoyed] = useState(false);
@@ -43,6 +56,55 @@ const Navigation = () => {
 
   useEffect(() => () => clearTimeout(annoyedTimerRef.current), []);
 
+  /** One character flickers through glyphs (width-locked, accent tint), then settles. */
+  const scrambleChar = (i: number) => {
+    if (scramblingRef.current[i]) return;
+    const el = charRefs.current[i];
+    if (!el) return;
+    scramblingRef.current[i] = true;
+    const w = el.offsetWidth;
+    setLockedWidths((p) => p.map((v, k) => (k === i ? w : v)));
+    setScrambling((p) => p.map((v, k) => (k === i ? true : v)));
+    let ticks = 0;
+    const id = window.setInterval(() => {
+      ticks += 1;
+      if (ticks > 5) {
+        clearInterval(id);
+        scramblingRef.current[i] = false;
+        setDisplay((p) => p.map((v, k) => (k === i ? LOGO_CHARS[i] : v)));
+        setScrambling((p) => p.map((v, k) => (k === i ? false : v)));
+        setLockedWidths((p) => p.map((v, k) => (k === i ? undefined : v)));
+      } else {
+        setDisplay((p) =>
+          p.map((v, k) =>
+            k === i ? SCRAMBLE_GLYPHS[(Math.random() * SCRAMBLE_GLYPHS.length) | 0] : v
+          )
+        );
+      }
+    }, 40);
+    timersRef.current.push(id);
+  };
+
+  /** Left-to-right decode sweep across the name; U and G stay anchored. */
+  const scramblePass = () => {
+    if (reduceRef.current) return;
+    LOGO_CHARS.forEach((ch, i) => {
+      if (i === U_INDEX || i === G_INDEX || ch === " ") return;
+      const t = window.setTimeout(() => scrambleChar(i), i * 28);
+      timersRef.current.push(t);
+    });
+  };
+
+  // Boot decode + reduced-motion flag + timer cleanup
+  useEffect(() => {
+    reduceRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const boot = window.setTimeout(scramblePass, 600);
+    timersRef.current.push(boot);
+    const timers = timersRef.current;
+    return () => timers.forEach((id) => clearTimeout(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Measure U and G positions so G can translateX to sit right after U
   useEffect(() => {
     const measure = () => {
@@ -56,6 +118,7 @@ const Navigation = () => {
       }
     };
     measure();
+    document.fonts?.ready.then(measure);
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, []);
@@ -83,7 +146,13 @@ const Navigation = () => {
         <button
           onClick={handleLogoClick}
           onAnimationEnd={() => setSpinning(false)}
-          className="text-xl font-black tracking-tighter text-white cursor-pointer hover:opacity-70 transition-opacity"
+          onMouseEnter={() => {
+            setHovered(true);
+            scramblePass();
+          }}
+          onMouseLeave={() => setHovered(false)}
+          aria-label="UTKARSH GARG — home"
+          className="text-xl font-black tracking-tighter text-white cursor-pointer"
           style={{
             display: "flex",
             alignItems: "center",
@@ -94,24 +163,30 @@ const Navigation = () => {
             const isU = i === U_INDEX;
             const isG = i === G_INDEX;
             const isKeeper = isU || isG;
+            // hovering the collapsed monogram decrypts the full name back out
+            const hidden = !isKeeper && collapsed && !hovered;
 
             return (
               <span
                 key={i}
                 ref={(el) => { charRefs.current[i] = el; }}
+                aria-hidden
                 style={{
                   display: "inline-block",
                   whiteSpace: "pre",
                   willChange: "opacity, transform",
-                  opacity: !isKeeper && collapsed ? 0 : 1,
-                  transform: isG && collapsed
+                  opacity: hidden ? 0 : 1,
+                  width: lockedWidths[i],
+                  textAlign: lockedWidths[i] !== undefined ? "center" : undefined,
+                  color: scrambling[i] ? ACCENT : undefined,
+                  transform: isG && collapsed && !hovered
                     ? `translateX(${gOffset}px)`
                     : "translateX(0px)",
                   transition:
                     "opacity 400ms ease, transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 }}
               >
-                {char}
+                {display[i]}
               </span>
             );
           })}

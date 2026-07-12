@@ -1,14 +1,14 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import config from "@/data/config.json";
 import KineticHeading from "@/components/motion/KineticHeading";
 import Reveal from "@/components/motion/Reveal";
 
 const base = import.meta.env.BASE_URL;
 const journeyImages = [
-  `${base}images/journey/tech-lead.jpg`,
-  `${base}images/journey/placement-coordinator.jpg`,
-  `${base}images/journey/summer-intern.jpg`,
+  `${base}images/journey/tech-lead.svg`,
+  `${base}images/journey/placement-coordinator.svg`,
+  `${base}images/journey/summer-intern.svg`,
 ];
 
 /** Image drifts vertically inside its frame as it crosses the viewport. */
@@ -34,6 +34,14 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
 };
 
 const Journey = () => {
+  const listRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start 0.8", "end 0.5"],
+  });
+  const lineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 30, restDelta: 0.001 });
+
   return (
     <section id="journey" className="pt-40 pb-20 px-12 bg-black">
       <div className="mb-32">
@@ -43,7 +51,15 @@ const Journey = () => {
         <KineticHeading lines={["JOURNEY."]} className="text-huge uppercase text-white" />
       </div>
 
-      <div className="space-y-64">
+      <div ref={listRef} className="relative md:pl-10">
+        {/* timeline: faint track + scroll-scrubbed drawing line */}
+        <div aria-hidden className="hidden md:block absolute left-0 top-2 bottom-0 w-px bg-white/10" />
+        <motion.div
+          aria-hidden
+          className="hidden md:block absolute left-0 top-2 bottom-0 w-px bg-white/50 origin-top"
+          style={{ scaleY: reduce ? 1 : lineScale }}
+        />
+        <div className="space-y-64">
         {config.experience.map((exp, index) => (
           <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             {/* Faded index number */}
@@ -88,6 +104,7 @@ const Journey = () => {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </section>
   );
