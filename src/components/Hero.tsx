@@ -129,7 +129,7 @@ const Hero = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="relative overflow-hidden min-h-screen flex flex-col justify-end px-12 pb-24 pt-48 bg-black"
+      className="relative overflow-hidden min-h-screen flex flex-col justify-end px-6 md:px-12 pb-24 pt-48 bg-black"
     >
       <NeuralRain />
       <WireframeCore />
@@ -153,7 +153,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
           <div className="md:col-span-8">
             <motion.h2
-              className="text-3xl md:text-5xl font-light tracking-tight text-neutral-400 max-w-4xl"
+              className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-neutral-400 max-w-4xl"
               initial={{ opacity: 0, y: reduce ? 0 : 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: introDelay(1), ease: EASE }}

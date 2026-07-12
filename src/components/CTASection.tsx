@@ -30,7 +30,7 @@ const CTASection = () => {
   };
 
   return (
-    <section ref={sectionRef} className="px-12 py-64 text-center bg-black">
+    <section ref={sectionRef} className="px-6 md:px-12 py-40 md:py-64 text-center bg-black">
       <Reveal>
         <p className="text-meta text-neutral-500 mb-12">HAVE A PROJECT IN MIND?</p>
       </Reveal>

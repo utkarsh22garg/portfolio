@@ -43,7 +43,7 @@ const Journey = () => {
   const lineScale = useSpring(scrollYProgress, { stiffness: 90, damping: 30, restDelta: 0.001 });
 
   return (
-    <section id="journey" className="pt-40 pb-20 px-12 bg-black">
+    <section id="journey" className="pt-40 pb-20 px-6 md:px-12 bg-black">
       <div className="mb-32">
         <Reveal>
           <p className="text-meta text-neutral-500 mb-4">02 — JOURNEY</p>

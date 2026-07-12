@@ -34,7 +34,7 @@ const columns = [
 
 const TechnicalMastery = () => {
   return (
-    <section id="stack" className="px-12 py-40 bg-black">
+    <section id="stack" className="px-6 md:px-12 py-40 bg-black">
       <div className="mb-24">
         <Reveal>
           <p className="text-meta text-neutral-500 mb-8">01 — STACK</p>

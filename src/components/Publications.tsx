@@ -4,7 +4,7 @@ import Reveal from "@/components/motion/Reveal";
 
 const Publications = () => {
   return (
-    <section id="publications" className="px-12 py-40 bg-[#0e0e0e]">
+    <section id="publications" className="px-6 md:px-12 py-40 bg-[#0e0e0e]">
       <div className="mb-24">
         <Reveal>
           <p className="text-meta text-neutral-500 mb-8">03 — PUBLICATIONS</p>

@@ -22,6 +22,9 @@ const ACCENT = "#67e8f9";
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [collapsed, setCollapsed] = useState(false);
+  // Below md the full wordmark can't share the bar with CONTACT/RESUME, so the
+  // logo stays a static UG monogram (display:none, no animation) at all times.
+  const [compact, setCompact] = useState(false);
   const [hovered, setHovered] = useState(false);
   // How far G needs to slide left to sit right after U
   const [gOffset, setGOffset] = useState(0);
@@ -124,6 +127,14 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setCompact(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setCollapsed(window.scrollY > 60);
 
@@ -141,7 +152,7 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-black/70 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-12 py-8">
+    <nav className="fixed top-0 w-full z-50 bg-black/70 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-6 py-5 md:px-12 md:py-8">
       <div className="flex items-center gap-6">
         <button
           onClick={handleLogoClick}
@@ -166,6 +177,10 @@ const Navigation = () => {
             // hovering the collapsed monogram decrypts the full name back out
             const hidden = !isKeeper && collapsed && !hovered;
 
+            // compact (mobile): non-keepers leave the layout entirely so the
+            // button shrinks to "UG" and never crowds the CONTACT/RESUME cluster
+            if (compact && !isKeeper) return null;
+
             return (
               <span
                 key={i}
@@ -179,7 +194,7 @@ const Navigation = () => {
                   width: lockedWidths[i],
                   textAlign: lockedWidths[i] !== undefined ? "center" : undefined,
                   color: scrambling[i] ? ACCENT : undefined,
-                  transform: isG && collapsed && !hovered
+                  transform: !compact && isG && collapsed && !hovered
                     ? `translateX(${gOffset}px)`
                     : "translateX(0px)",
                   transition:
@@ -204,7 +219,7 @@ const Navigation = () => {
         </span>
       </div>
 
-      <div className="hidden md:flex gap-12">
+      <div className="hidden lg:flex gap-8 xl:gap-12">
         {SECTIONS.map((section) => (
           <button
             key={section.id}
@@ -221,7 +236,7 @@ const Navigation = () => {
         ))}
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4 md:gap-6">
         <a
           href={`mailto:${config.personal.email}`}
           className="text-[11px] font-bold tracking-tighter text-white hover:opacity-70 transition-opacity uppercase"

@@ -21,7 +21,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="sticky bottom-0 z-0 bg-black border-t border-white/5 py-20 px-12 flex flex-col md:flex-row justify-between items-start gap-8">
+    <footer className="sticky bottom-0 z-0 bg-black border-t border-white/5 py-20 px-6 md:px-12 flex flex-col md:flex-row justify-between items-start gap-8">
       {/* Left */}
       <div className="flex flex-col gap-6">
         <div className="text-lg font-bold text-white uppercase tracking-tighter">

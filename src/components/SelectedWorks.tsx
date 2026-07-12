@@ -78,7 +78,7 @@ const SelectedWorks = () => {
   const projects = config.projects;
 
   return (
-    <section id="portfolio" className="px-12 py-40 bg-[#0e0e0e]">
+    <section id="portfolio" className="px-6 md:px-12 py-40 bg-[#0e0e0e]">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-baseline mb-24 gap-8">
         <div>
