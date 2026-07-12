@@ -12,10 +12,12 @@ import SmoothScroll from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
 import EasterEggs from "@/components/EasterEggs";
+import Splash from "@/components/Splash";
 
 const Index = () => {
   return (
     <div className="bg-black min-h-screen">
+      <Splash />
       <SmoothScroll />
       <ScrollProgress />
       <CustomCursor />
