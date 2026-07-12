@@ -15,3 +15,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://utkarsh22garg.github.io/portfolio/sitemap.xml

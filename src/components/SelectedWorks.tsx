@@ -30,6 +30,8 @@ const CurtainImage = ({ src, alt }: { src: string; alt: string }) => {
     <img
       src={src}
       alt={alt}
+      loading="lazy"
+      decoding="async"
       className="w-full h-full object-cover grayscale transition-all duration-700 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]"
     />
   );
