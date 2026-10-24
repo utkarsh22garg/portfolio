@@ -152,7 +152,7 @@ const Hero = () => {
         aria-hidden
         className="pointer-events-none absolute -z-[5] left-[56%] top-[14%] w-[56vmin] -translate-x-1/2 md:left-[80%] md:top-[30%] md:w-[34vmin]"
       >
-        <div className="hero-sink">
+        <div className="hero-sink will-change-transform">
           <div className="hero-float relative">
             <div className="absolute left-1/2 top-1/2 w-[170%] -translate-x-1/2 -translate-y-1/2 md:w-[175%]">
               <div className="hero-enso-pointer">

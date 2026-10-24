@@ -1,5 +1,5 @@
-import { useId, useMemo, useRef, type CSSProperties } from "react";
-import { gsap, useGSAP, MOTION } from "@/lib/gsap";
+import { useEffect, useId, useMemo, useRef, useState, type CSSProperties } from "react";
+import { gsap, useGSAP, MOTION, REDUCED } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 /**
@@ -12,6 +12,11 @@ import { cn } from "@/lib/utils";
  * so the brush body itself is never distorted by the reveal.
  *
  * Gap (~15°) sits at the top-right. The ring is drawn clockwise.
+ *
+ * Performance: the filter chain (3× turbulence, 2× displacement, 2× blur) is too heavy to re-run
+ * every frame — which it would during the draw-on (animated mask) and whenever an ancestor scales
+ * (hero scroll). So on mount the ink is rasterised once and the live filtered vector is swapped for
+ * a plain <image>; the reveal mask is dropped once the ring is drawn.
  */
 
 const VB = 200;
@@ -23,6 +28,8 @@ const GAP_CENTER = -58; // degrees (0 = 3 o'clock, clockwise positive) → top-r
 const START = GAP_CENTER + GAP / 2; // brush lands just clockwise of the gap
 const SWEEP = 360 - GAP;
 const SAMPLES = 180;
+const PAD = 20; // filter / halo bleed beyond the viewBox (viewBox units)
+const MAX_RASTER = 2048;
 
 const rad = (d: number) => (d * Math.PI) / 180;
 const smooth = (a: number, b: number, t: number) => {
@@ -152,6 +159,8 @@ const Enso = ({
 }: EnsoProps) => {
   const root = useRef<SVGSVGElement>(null);
   const spine = useRef<SVGPathElement>(null);
+  const [bitmap, setBitmap] = useState<string | null>(null);
+  const [drawn, setDrawn] = useState(play === "none");
   const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   const ids = { filter: `enso-f-${uid}`, reveal: `enso-r-${uid}`, dry: `enso-d-${uid}`, soft: `enso-s-${uid}`, core: `enso-c-${uid}` };
 
@@ -176,12 +185,59 @@ const Enso = ({
             delay,
             ease: "power2.inOut",
             scrollTrigger: play === "scroll" ? { trigger: root.current, start: "top 85%", once: true } : undefined,
+            onComplete: () => setDrawn(true),
           },
         );
       });
+      mm.add(REDUCED, () => setDrawn(true));
     },
     { scope: root },
   );
+
+  // Rasterise the filtered ink once (display size × DPR) and swap it in as a bitmap.
+  useEffect(() => {
+    const svg = root.current;
+    const w = svg?.getBoundingClientRect().width ?? 0;
+    if (!svg || !w) return;
+    let cancelled = false;
+    let url: string | undefined;
+    const px = Math.min(MAX_RASTER, Math.round(((w * (VB + PAD * 2)) / VB) * Math.min(window.devicePixelRatio || 1, 2)));
+
+    const clone = svg.cloneNode(true) as SVGSVGElement;
+    clone.querySelector("[data-enso-reveal]")?.removeAttribute("mask");
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    clone.setAttribute("viewBox", `${-PAD} ${-PAD} ${VB + PAD * 2} ${VB + PAD * 2}`);
+    clone.setAttribute("width", String(px));
+    clone.setAttribute("height", String(px));
+    clone.removeAttribute("class");
+    clone.setAttribute("style", `color:${color}`);
+
+    const img = new Image();
+    img.onload = () => {
+      if (cancelled) return;
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = px;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(img, 0, 0, px, px);
+      try {
+        canvas.toBlob((blob) => {
+          if (cancelled || !blob) return;
+          url = URL.createObjectURL(blob);
+          setBitmap(url);
+        });
+      } catch {
+        // tainted canvas (not expected for a data: SVG) — keep the live vector
+      }
+    };
+    img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(clone))}`;
+
+    return () => {
+      cancelled = true;
+      if (url) URL.revokeObjectURL(url);
+      setBitmap(null);
+    };
+  }, [color, opacity, roughness]);
 
   const dim = typeof size === "number" ? `${size}px` : size;
 
@@ -263,26 +319,32 @@ const Enso = ({
         </mask>
       </defs>
 
-      <g mask={`url(#${ids.reveal})`}>
-        <g filter={`url(#${ids.filter})`} fill="currentColor">
-          <g mask={`url(#${ids.dry})`}>
-            <path d={geo.brush} fillOpacity={opacity} />
-          </g>
-          {geo.bristles.map((d, i) => (
-            <path
-              key={i}
-              d={d}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={0.5}
-              strokeLinecap="round"
-              opacity={Math.min(1, opacity * 1.6)}
-              strokeDasharray={i === 0 ? "46 3 22 4 80" : undefined}
-            />
-          ))}
-        </g>
-        {/* wet core: denser, blurred pigment along the spine gives tonal depth — glows instead of a flat band */}
-        <path d={geo.core} fill="currentColor" fillOpacity={Math.min(1, opacity * 1.2)} filter={`url(#${ids.core})`} />
+      <g data-enso-reveal mask={drawn ? undefined : `url(#${ids.reveal})`}>
+        {bitmap ? (
+          <image href={bitmap} x={-PAD} y={-PAD} width={VB + PAD * 2} height={VB + PAD * 2} />
+        ) : (
+          <>
+            <g filter={`url(#${ids.filter})`} fill="currentColor">
+              <g mask={`url(#${ids.dry})`}>
+                <path d={geo.brush} fillOpacity={opacity} />
+              </g>
+              {geo.bristles.map((d, i) => (
+                <path
+                  key={i}
+                  d={d}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={0.5}
+                  strokeLinecap="round"
+                  opacity={Math.min(1, opacity * 1.6)}
+                  strokeDasharray={i === 0 ? "46 3 22 4 80" : undefined}
+                />
+              ))}
+            </g>
+            {/* wet core: denser, blurred pigment along the spine gives tonal depth — glows instead of a flat band */}
+            <path d={geo.core} fill="currentColor" fillOpacity={Math.min(1, opacity * 1.2)} filter={`url(#${ids.core})`} />
+          </>
+        )}
       </g>
     </svg>
   );

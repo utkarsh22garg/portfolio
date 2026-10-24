@@ -9,11 +9,12 @@ const GrainGlow = ({ className, tone = "ink" }: { className?: string; tone?: "in
     {tone === "ink" ? (
       <>
         <div
-          className="glow-a absolute left-1/2 top-[-30%] h-[110%] w-[120%] -translate-x-1/2"
+          className="glow-a absolute left-1/2 top-[-30%] h-[110%] w-[120%] -translate-x-1/2 will-change-transform"
           style={{
+            // no CSS blur: the gradient is already soft, and a blurred layer that breathes forever
+            // costs a full-viewport GPU blur every frame
             background:
               "radial-gradient(50% 55% at 50% 40%, rgba(122,160,255,0.55) 0%, rgba(54,92,220,0.32) 38%, rgba(16,28,80,0.18) 62%, transparent 78%)",
-            filter: "blur(10px)",
           }}
         />
         <div
@@ -30,7 +31,7 @@ const GrainGlow = ({ className, tone = "ink" }: { className?: string; tone?: "in
         }}
       />
     )}
-    <div className="grain-layer absolute inset-[-50%]" />
+    <div className="grain-layer absolute inset-0" />
   </div>
 );
 
